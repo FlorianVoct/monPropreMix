@@ -14,4 +14,8 @@ export default defineMessages({
     id: 'boilerplate.components.Header.features',
     defaultMessage: 'Features',
   },
+  introduction: {
+    id: 'boilerplate.components.Header.introduction',
+    defaultMessage: 'Mon petit projet',
+  },
 });

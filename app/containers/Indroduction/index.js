@@ -1,30 +1,32 @@
 /*
  *
- * Introduction
+ * Indroduction
  *
  */
 
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import Header from 'components/Header';
-import Footer from 'components/Footer';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
-export class Introduction extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class Indroduction extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
       <div>
-        <Header />
+        <Helmet
+          title="Indroduction"
+          meta={[
+            { name: 'description', content: 'Description of Indroduction' },
+          ]}
+        />
         <FormattedMessage {...messages.header} />
-        <Footer />
       </div>
     );
   }
 }
 
-Introduction.propTypes = {
+Indroduction.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
@@ -35,4 +37,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(null, mapDispatchToProps)(Introduction);
+export default connect(null, mapDispatchToProps)(Indroduction);
