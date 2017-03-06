@@ -1,6 +1,6 @@
 /**
 *
-* Footer
+* Header
 *
 */
 
@@ -10,7 +10,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
-function Footer() {
+function Header() {
   return (
     <div>
       <FormattedMessage {...messages.header} />
@@ -18,8 +18,8 @@ function Footer() {
   );
 }
 
-Footer.propTypes = {
+Header.propTypes = {
 
 };
 
-export default Footer;
+export default Header;

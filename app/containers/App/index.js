@@ -11,7 +11,7 @@ import Helmet from 'react-helmet';
 import styled from 'styled-components';
 
 import HeaderBaseBoilerPlate from 'components/HeaderBaseBoilerPlate';
-import Footer from 'components/Footer';
+import FooterBaseBoilerPlate from 'components/FooterBaseBoilerPlate';
 import withProgressBar from 'components/ProgressBar';
 
 const AppWrapper = styled.div`
@@ -35,7 +35,7 @@ export function App(props) {
       />
       <HeaderBaseBoilerPlate />
       {React.Children.toArray(props.children)}
-      <Footer />
+      <FooterBaseBoilerPlate />
     </AppWrapper>
   );
 }
