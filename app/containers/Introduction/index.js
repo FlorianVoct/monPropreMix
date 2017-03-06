@@ -17,7 +17,7 @@ export class Introduction extends React.PureComponent { // eslint-disable-line r
     return (
       <div>
         <Header />
-        <FormattedMessage {...messages.header} />
+        <FormattedMessage {...messages.notice} />
         <Footer />
       </div>
     );
