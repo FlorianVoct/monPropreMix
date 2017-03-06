@@ -1,6 +1,6 @@
 /*
  *
- * Indroduction
+ * Introduction
  *
  */
 
@@ -10,14 +10,14 @@ import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
-export class Indroduction extends React.Component { // eslint-disable-line react/prefer-stateless-function
+export class Introduction extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
       <div>
         <Helmet
-          title="Indroduction"
+          title="Introduction"
           meta={[
-            { name: 'description', content: 'Description of Indroduction' },
+            { name: 'description', content: 'Description of Introduction' },
           ]}
         />
         <FormattedMessage {...messages.header} />
@@ -26,7 +26,7 @@ export class Indroduction extends React.Component { // eslint-disable-line react
   }
 }
 
-Indroduction.propTypes = {
+Introduction.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
@@ -37,4 +37,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(null, mapDispatchToProps)(Indroduction);
+export default connect(null, mapDispatchToProps)(Introduction);
