@@ -47,6 +47,14 @@ export default function createRoutes(store) {
           .catch(errorLoading);
       },
     }, {
+      path: '/introduction',
+      name: 'introduction',
+      getComponent(location, cb) {
+        import('containers/Introduction')
+          .then(loadModule(cb))
+          .catch(errorLoading);
+      },
+    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {
