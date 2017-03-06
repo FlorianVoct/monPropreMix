@@ -55,6 +55,24 @@ export default function createRoutes(store) {
           .catch(errorLoading);
       },
     }, {
+      path: '/mixhomepage',
+      name: 'mixHomePage',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/MixHomePage/reducer'),
+          import('containers/MixHomePage'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, component]) => {
+          injectReducer('mixHomePage', reducer.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {
