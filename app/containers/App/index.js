@@ -10,7 +10,8 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
 
-import HeaderBaseBoilerPlate from 'components/HeaderBaseBoilerPlate';
+import Header from 'components/Header';
+import Footer from 'components/Footer';
 import FooterBaseBoilerPlate from 'components/FooterBaseBoilerPlate';
 import withProgressBar from 'components/ProgressBar';
 
@@ -33,9 +34,9 @@ export function App(props) {
           { name: 'description', content: 'A React.js Boilerplate application' },
         ]}
       />
-      <HeaderBaseBoilerPlate />
+      <Header />
       {React.Children.toArray(props.children)}
-      <FooterBaseBoilerPlate />
+      <Footer />
     </AppWrapper>
   );
 }
