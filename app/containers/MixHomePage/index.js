@@ -12,6 +12,8 @@ import { createStructuredSelector } from 'reselect';
 import makeSelectMixHomePage from './selectors';
 import messages from './messages';
 
+import SliderComponent from 'components/SliderComponent';
+
 export class MixHomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
@@ -23,6 +25,7 @@ export class MixHomePage extends React.PureComponent { // eslint-disable-line re
           ]}
         />
         <FormattedMessage {...messages.header} />
+        <SliderComponent />
       </div>
     );
   }
