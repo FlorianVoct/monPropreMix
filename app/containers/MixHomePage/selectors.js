@@ -19,7 +19,14 @@ const makeSelectMixHomePage = () => createSelector(
   (substate) => substate.toJS()
 );
 
+
+const makeSelectNeeds = () => createSelector(
+  selectMixHomePageDomain(),
+  (substate) => substate.get('needs')
+);
+
 export default makeSelectMixHomePage;
 export {
+  makeSelectNeeds,
   selectMixHomePageDomain,
 };

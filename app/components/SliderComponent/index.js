@@ -4,7 +4,7 @@
 *
 */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
@@ -17,9 +17,19 @@ import { SliderDiv } from './style';
 
 class SliderComponent extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
+  constructor(){
+    super();
+    this.state = {
+      value: 100
+    }
+  }
 
-  onSliderChange(){
-    console.log("changement dans le slider");
+  onSliderChange(value){
+    console.log(value);
+    this.props.ModifieValue(value);
+    this.setState({
+      value: value
+    })
   }
 
 
@@ -28,13 +38,13 @@ class SliderComponent extends React.PureComponent { // eslint-disable-line react
     return (
       <div>
         <FormattedMessage {...messages.header} />
-        <p>Un autre truc</p>
+        <p>{this.props.SliderTitle} {this.state.value}</p>
         <SliderDiv>
           <Slider
-            min={12}
-            max={78}
+            min={0}
+            max={100}
             onChange={this.onSliderChange.bind(this)}
-            defaultValue={50}
+            defaultValue={100}
             />
         </SliderDiv>
       </div>
@@ -43,6 +53,9 @@ class SliderComponent extends React.PureComponent { // eslint-disable-line react
 }
 
 SliderComponent.propTypes = {
+  SliderTitle: PropTypes.string,
+  ModifieValue: PropTypes.func,
+
 
 };
 

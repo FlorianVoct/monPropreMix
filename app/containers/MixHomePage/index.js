@@ -9,12 +9,30 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
-import makeSelectMixHomePage from './selectors';
+import makeSelectMixHomePage, {makeSelectNeeds} from './selectors';
 import messages from './messages';
 
 import SliderComponent from 'components/SliderComponent';
 
+import { modifieNeeds } from './actions';
+
+
 export class MixHomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+
+  // constructor(){
+  //   super();
+  //   this.dispatch = this.dispatch.bind(this);
+  // }
+
+
+
+  dispatchModifiedNeeds(value){
+    this.props.dispatch(modifieNeeds(value));
+  }
+
+
+
+
   render() {
     return (
       <div>
@@ -25,7 +43,11 @@ export class MixHomePage extends React.PureComponent { // eslint-disable-line re
           ]}
         />
         <FormattedMessage {...messages.header} />
-        <SliderComponent />
+        <SliderComponent
+            SliderTitle={"Un slider"}
+            ModifieValue={this.dispatchModifiedNeeds.bind(this)}
+            />
+        {this.props.Needs}
       </div>
     );
   }
@@ -37,6 +59,7 @@ MixHomePage.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   MixHomePage: makeSelectMixHomePage(),
+  Needs: makeSelectNeeds(),
 });
 
 function mapDispatchToProps(dispatch) {
