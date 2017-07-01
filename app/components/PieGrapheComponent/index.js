@@ -1,6 +1,6 @@
 /**
 *
-* Slider
+* PieChart
 *
 */
 
@@ -28,7 +28,7 @@ const config = {
         type: 'pie'
     },
     title: {
-        text: 'Browser market shares. January, 2015 to May, 2015'
+        text: 'Mix énergétique - France Métropolitaine - 2050'
     },
     tooltip: {
         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'

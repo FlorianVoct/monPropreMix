@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
-import makeSelectMixHomePage, {makeSelectNeeds} from './selectors';
+import makeSelectMixHomePage, {makeSelectConso} from './selectors';
 import messages from './messages';
 
 import SliderComponent from 'components/SliderComponent';
@@ -23,41 +23,55 @@ import {
   electricite_initiale,
 } from 'components/Calculation';
 
-import { modifieNeeds } from './actions';
+import { modifieConso } from './actions';
 
 import { PieChart, Pie } from 'recharts';
-
 
 export class MixHomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   constructor(){
     super();
     this.state = {
-      activeIndex: 0,
+      energie: calculMixEnergetique(
+        conso_initiale,
+        transport_initiale.ptg_init_transport,
+        Chauffage_initiale.ptg_init_chauffage,
+        industrie_initiale.ptg_init_industrie,
+        electricite_initiale.ptg_init_electricite
+      )
     };
+
   }
 
-
-  dispatchModifiedNeeds(value){
-    this.props.dispatch(modifieNeeds(value));
+  // on initialize le store (pas réussi à le faire directement dans le
+  // reducer)
+  componentWillMount(){
+    if(this.props.conso === ""){
+       this.props.dispatch(modifieConso(conso_initiale));
+    }
   }
 
-
-  onPieEnter(data, index) {
-    console.log(index);
+  dispatchModifiedConso(consoType, value){
+    let consoTemp = Object.assign(this.props.conso);
+    consoTemp[consoType] = value;
+    this.props.dispatch(modifieConso(consoTemp));
+    this.updateMixEnergie();
   }
 
-  render() {
-    let energie = calculMixEnergetique(
-      conso_initiale,
+  updateMixEnergie(consoInitiale){
+    let energieTemp = calculMixEnergetique(
+      this.props.conso,
       transport_initiale.ptg_init_transport,
       Chauffage_initiale.ptg_init_chauffage,
       industrie_initiale.ptg_init_industrie,
       electricite_initiale.ptg_init_electricite
     );
-    const data = [{name: 'Group A', value: 400}, {name: 'Group B', value: 300},
-                  {name: 'Group C', value: 300}, {name: 'Group D', value: 200}];
-    let activeIndex = this.state.activeIndex;
+    this.setState({
+      energie : energieTemp
+    })
+  }
+
+  render() {
     return (
       <div>
         <Helmet
@@ -68,12 +82,27 @@ export class MixHomePage extends React.PureComponent { // eslint-disable-line re
         />
         <FormattedMessage {...messages.header} />
         <SliderComponent
-            SliderTitle={"Un slider"}
-            ModifieValue={this.dispatchModifiedNeeds.bind(this)}
+            SliderTitle={"Consommation d'électricité spécifique (tertiaire et domestique)"}
+            ModifieValue={this.dispatchModifiedConso.bind(this)}
+            consoType={'elecspe'}
             />
-        {this.props.Needs}
+        <SliderComponent
+            SliderTitle={"Consommation de chauffage des bâtiments"}
+            ModifieValue={this.dispatchModifiedConso.bind(this)}
+            consoType={'chauffage'}
+            />
+        <SliderComponent
+            SliderTitle={"Consommation dans les transports"}
+            ModifieValue={this.dispatchModifiedConso.bind(this)}
+            consoType={'transport'}
+            />
+        <SliderComponent
+            SliderTitle={"Consommation dans l'industrie et l'agriculture"}
+            ModifieValue={this.dispatchModifiedConso.bind(this)}
+            consoType={'industrie'}
+            />
         <PieGrapheComponent
-         energie= {energie}
+         energie= {this.state.energie}
          />
 
       </div>
@@ -83,11 +112,15 @@ export class MixHomePage extends React.PureComponent { // eslint-disable-line re
 
 MixHomePage.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  conso: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object
+  ])
 };
 
 const mapStateToProps = createStructuredSelector({
   MixHomePage: makeSelectMixHomePage(),
-  Needs: makeSelectNeeds(),
+  conso: makeSelectConso(),
 });
 
 function mapDispatchToProps(dispatch) {
