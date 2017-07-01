@@ -56,13 +56,6 @@ const config = {
 
 class PieGrapheComponent extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
-  constructor(){
-    super();
-    this.state = {
-      config: 100
-    }
-  }
-
   componentWillReceiveProps(nextProps) {
     let chart = this.refs.chart.getChart();
     chart.series[0].setData([
@@ -78,15 +71,13 @@ class PieGrapheComponent extends React.PureComponent { // eslint-disable-line re
     ], true);
   }
 
-
-
-
   render() {
     return (
       <Container id="container">
         <ReactHighcharts
         config = {config}
-        ref="chart"/>
+        ref='chart'
+        />
       </Container>
     );
   }
@@ -94,9 +85,6 @@ class PieGrapheComponent extends React.PureComponent { // eslint-disable-line re
 
 PieGrapheComponent.propTypes = {
   energie: PropTypes.array,
-  // ModifieValue: PropTypes.func,
-
-
 };
 
 export default PieGrapheComponent;

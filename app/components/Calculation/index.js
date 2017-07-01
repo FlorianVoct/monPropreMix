@@ -74,7 +74,7 @@ export const emmissionGES = {
 
 // Pour les textes
 export const enertxt =  ["Charbon", "Pétrole", "Gaz",
-"Nucl�aire", "Biomasse", "Hydraulique",
+"Nucléaire", "Biomasse", "Hydraulique",
 "Eoliennes", "Solaire PV", "Divers et déchets"];
 
 // Pour les couleurs des graphiques
