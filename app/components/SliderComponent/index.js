@@ -25,25 +25,23 @@ class SliderComponent extends React.PureComponent { // eslint-disable-line react
   }
 
   onSliderChange(value){
-    console.log(value);
-    this.props.ModifieValue(value);
+    // console.log(value);
+    // console.log(this.props.consoType);
+    this.props.ModifieValue(this.props.consoType, value);
     this.setState({
       value: value
     })
   }
 
-
-
   render() {
     return (
       <div>
-        <FormattedMessage {...messages.header} />
-        <p>{this.props.SliderTitle} {this.state.value}</p>
+        <p>{this.props.SliderTitle} {' - '} {this.state.value} {' %'}</p>
         <SliderDiv>
           <Slider
             min={0}
             max={100}
-            onChange={this.onSliderChange.bind(this)}
+            onAfterChange={this.onSliderChange.bind(this)}
             defaultValue={100}
             />
         </SliderDiv>
@@ -55,8 +53,7 @@ class SliderComponent extends React.PureComponent { // eslint-disable-line react
 SliderComponent.propTypes = {
   SliderTitle: PropTypes.string,
   ModifieValue: PropTypes.func,
-
-
+  consoType: PropTypes.string,
 };
 
 export default SliderComponent;
