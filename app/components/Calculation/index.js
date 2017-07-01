@@ -95,8 +95,8 @@ export const enertxt =  ["Charbon", "Pétrole", "Gaz",
 //   divers : new Color(128, 64, 64);;
 // }
 
-export function calculMixEnergetique(ptg_chauffage, ptg_industrie, ptg_transport,
-  ptg_electricite, conso){
+export function calculMixEnergetique(conso, ptg_transport, ptg_chauffage, ptg_industrie,
+  ptg_electricite){
   let energie = [];
 	let ptg_energie = [];
 
@@ -105,7 +105,7 @@ export function calculMixEnergetique(ptg_chauffage, ptg_industrie, ptg_transport
 						ptg_industrie[3]*industrie_initiale.conso_industrie*conso.industrie+
 						ptg_transport[2]*transport_initiale.conso_transport*conso.transport+
 						conso.elecspe*conso_initiale.conso_elecspe*100)/10000;
-	let ptg_conso_electricite= round(conso_electricite*100/38.6461, 0);
+	let ptg_conso_electricite= Math.round(conso_electricite*100/38.6461, 0);
 
 	// Charbon
 	energie[0]=(ptg_chauffage[0]*Chauffage_initiale.conso_chauffage*conso.chauffage+
