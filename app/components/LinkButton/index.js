@@ -5,19 +5,14 @@ import messages from './messages';
 
 import ButtonStyle from './ButtonStyle';
 
-
-function LinkButton() {
+function LinkButton(linkTo) {
   return (
     <div>
-      <ButtonStyle to="/mixhomepage">
+      <ButtonStyle to={linkTo}>
         <FormattedMessage {...messages.mixhomepage} />
       </ButtonStyle>
     </div>
   );
 }
-
-LinkButton.propTypes = {
-
-};
 
 export default LinkButton;
