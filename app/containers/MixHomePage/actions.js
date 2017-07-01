@@ -6,7 +6,7 @@
 
 import {
   DEFAULT_ACTION,
-  MODIFIE_NEEDS,
+  MODIFIE_CONSO,
 } from './constants';
 
 export function defaultAction() {
@@ -16,9 +16,9 @@ export function defaultAction() {
 }
 
 
-export function modifieNeeds(value) {
+export function modifieConso(array) {
   return {
-    type: MODIFIE_NEEDS,
-    value
+    type: MODIFIE_CONSO,
+    array
   };
 }

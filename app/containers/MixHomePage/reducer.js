@@ -7,19 +7,23 @@
 import { fromJS } from 'immutable';
 import {
   DEFAULT_ACTION,
-  MODIFIE_NEEDS,
+  MODIFIE_CONSO,
 } from './constants';
 
+import {
+  conso_initiale,
+} from 'components/Calculation';
+
 const initialState = fromJS({
-  "needs" : 100
+  "conso" : ""
 });
 
 function mixHomePageReducer(state = initialState, action) {
   switch (action.type) {
     case DEFAULT_ACTION:
       return state;
-    case MODIFIE_NEEDS:
-      return state.set("needs", action.value);
+    case MODIFIE_CONSO:
+      return state.set("conso", action.array);
     default:
       return state;
   }

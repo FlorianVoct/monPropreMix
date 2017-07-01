@@ -5,4 +5,4 @@
  */
 
 export const DEFAULT_ACTION = 'app/MixHomePage/DEFAULT_ACTION';
-export const MODIFIE_NEEDS = 'app/MixHomePage/MODIFIE_NEEDS';
+export const MODIFIE_CONSO = 'app/MixHomePage/MODIFIE_CONSO';
