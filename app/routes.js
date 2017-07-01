@@ -73,6 +73,24 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
     }, {
+      path: '/energiemixpage(/:consommation)',
+      name: 'energieMixPage',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/EnergieMixPage/reducer'),
+          import('containers/EnergieMixPage'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, component]) => {
+          injectReducer('energieMixPage', reducer.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {
