@@ -19,7 +19,7 @@ export class Introduction extends React.PureComponent { // eslint-disable-line r
       <div>
         <Header />
         <FormattedMessage {...messages.notice} />
-        <LinkButton />
+        {LinkButton('/mixhomepage')}
         <Footer />
       </div>
     );

@@ -11,6 +11,7 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import makeSelectMixHomePage, {makeSelectConso} from './selectors';
 import messages from './messages';
+import { Link } from 'react-router';
 
 import SliderComponent from 'components/SliderComponent';
 import PieGrapheComponent from 'components/PieGrapheComponent';
@@ -86,6 +87,7 @@ export class MixHomePage extends React.PureComponent { // eslint-disable-line re
             ModifieValue={this.dispatchModifiedConso.bind(this)}
             consoType={'elecspe'}
             />
+            <Link to={'/energiemixpage/electricite'}>Modifier le mix énergétique du chauffage</Link>
         <SliderComponent
             SliderTitle={"Consommation de chauffage des bâtiments"}
             ModifieValue={this.dispatchModifiedConso.bind(this)}
