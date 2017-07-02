@@ -14,12 +14,12 @@ const selectEnergieMixPageDomain = () => (state) => state.get('energieMixPage');
  * Default selector used by EnergieMixPage
  */
 
-const makeSelectEnergieMixPage = () => createSelector(
+const makeSelectEnergieMix = () => createSelector(
   selectEnergieMixPageDomain(),
   (substate) => substate.toJS()
 );
 
-export default makeSelectEnergieMixPage;
+export default makeSelectEnergieMix;
 export {
-  selectEnergieMixPageDomain,
+  makeSelectEnergieMix,
 };

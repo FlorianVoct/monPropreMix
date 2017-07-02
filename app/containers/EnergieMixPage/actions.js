@@ -4,12 +4,15 @@
  *
  */
 
-import {
-  DEFAULT_ACTION,
-} from './constants';
+ import {
+   MODIFIE_MIX_ENERGIE,
+ } from './constants';
 
-export function defaultAction() {
-  return {
-    type: DEFAULT_ACTION,
-  };
-}
+
+ export function modifieMixEnergieAction(secteur, array) {
+   return {
+     type: MODIFIE_MIX_ENERGIE,
+     secteur,
+     array
+   };
+ }

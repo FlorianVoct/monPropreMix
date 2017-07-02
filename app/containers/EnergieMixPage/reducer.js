@@ -6,15 +6,20 @@
 
 import { fromJS } from 'immutable';
 import {
-  DEFAULT_ACTION,
+  MODIFIE_MIX_ENERGIE,
 } from './constants';
 
-const initialState = fromJS({});
+const initialState = fromJS({
+  "electricite" : "",
+  "chauffage" : "",
+  "industrie" : "",
+  "transport" : ""
+});
 
 function energieMixPageReducer(state = initialState, action) {
   switch (action.type) {
-    case DEFAULT_ACTION:
-      return state;
+    case MODIFIE_MIX_ENERGIE:
+      return state.set(action.secteur, action.array);
     default:
       return state;
   }
