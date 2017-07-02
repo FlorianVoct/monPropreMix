@@ -5,18 +5,21 @@
  */
 
 import {
-  DEFAULT_ACTION,
+  MODIFIE_MIX_ENERGIE,
   MODIFIE_CONSO,
 } from './constants';
 
-export function defaultAction() {
+
+export function modifieMixEnergieAction(secteur, array) {
   return {
-    type: DEFAULT_ACTION,
+    type: MODIFIE_MIX_ENERGIE,
+    secteur,
+    array
   };
 }
 
-
 export function modifieConso(array) {
+  console.log(array);
   return {
     type: MODIFIE_CONSO,
     array

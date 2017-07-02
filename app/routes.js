@@ -18,7 +18,7 @@ export default function createRoutes(store) {
 
   return [
     {
-      path: '/',
+      path: '/homeboilerplate',
       name: 'home',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
@@ -55,7 +55,7 @@ export default function createRoutes(store) {
           .catch(errorLoading);
       },
     }, {
-      path: '/mixhomepage',
+      path: '/',
       name: 'mixHomePage',
       getComponent(nextState, cb) {
         const importModules = Promise.all([

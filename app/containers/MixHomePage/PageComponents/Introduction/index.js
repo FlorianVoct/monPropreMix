@@ -24,6 +24,13 @@ import {
 // import { modifieMixEnergieAction } from 'containers/EnergieMixPage/actions';
 
 export class Introduction extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  constructor(){
+    super();
+  }
+
+  changePage(){
+    this.props.selectPage('HomeMix');
+  }
 
   render() {
     return (
@@ -31,7 +38,7 @@ export class Introduction extends React.PureComponent { // eslint-disable-line r
         <Header />
         <FormattedMessage {...messages.notice} />
            <div
-            onClick={this.props.selectHomeMix('HomeMix')}
+            onClick={this.changePage.bind(this)}
            > Commencer !
            </div>
         <Footer />
@@ -41,7 +48,7 @@ export class Introduction extends React.PureComponent { // eslint-disable-line r
 }
 
 Introduction.propTypes = {
-  selectHomeMix: PropTypes.func,
+  selectPage: PropTypes.func,
 };
 
 export default Introduction;
