@@ -15,10 +15,6 @@ import ReactHighcharts from 'react-highcharts';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
-import {
-  enertxt,
-} from 'components/Calculation';
-
 const config = {
 
   chart: {
@@ -28,7 +24,7 @@ const config = {
         type: 'pie'
     },
     title: {
-        text: 'Mix énergétique - France Métropolitaine - 2050'
+        text: ''
     },
     tooltip: {
         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -45,12 +41,9 @@ const config = {
         }
     },
     series: [{
-        name: 'Energie',
-        data: [
-
-        ]
+        name: 'Energies',
+        data: []
     }]
-
 };
 
 
@@ -58,17 +51,8 @@ class PieGrapheComponent extends React.PureComponent { // eslint-disable-line re
 
   componentWillReceiveProps(nextProps) {
     let chart = this.refs.chart.getChart();
-    chart.series[0].setData([
-        { name: enertxt[0], y: nextProps.energie[0] },
-        { name: enertxt[1], y: nextProps.energie[1] },
-        { name: enertxt[2], y: nextProps.energie[2] },
-        { name: enertxt[3], y: nextProps.energie[3] },
-        { name: enertxt[4], y: nextProps.energie[4] },
-        { name: enertxt[5], y: nextProps.energie[5] },
-        { name: enertxt[6], y: nextProps.energie[6] },
-        { name: enertxt[7], y: nextProps.energie[7] },
-        { name: enertxt[8], y: nextProps.energie[8] },
-    ], true);
+    chart.series[0].setData(nextProps.energieGrapheList, true);
+    chart.setTitle({ text: nextProps.grapheTitle});
   }
 
   render() {
@@ -84,7 +68,10 @@ class PieGrapheComponent extends React.PureComponent { // eslint-disable-line re
 }
 
 PieGrapheComponent.propTypes = {
-  energie: PropTypes.array,
+  // tableau formaté pour être les data du graphe, cad une liste d'objet avec les
+  // paramètres name et y
+  energieGrapheList: PropTypes.array,
+  grapheTitle: PropTypes.string,
 };
 
 export default PieGrapheComponent;

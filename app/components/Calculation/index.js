@@ -21,24 +21,24 @@ export const population_initiale = {
 // Pour le transport
 export const transport_initiale = {
   conso_transport : 49.18, // en Mtep
-  ener_transport : [2, 3, 4, 5], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
-  enertxt_transport : ["Pétrole", "Gaz", "Electricité", "Agrocarburant"], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
+  ener : [2, 3, 4, 5], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
+  enertxt : ["Pétrole", "Gaz", "Electricité", "Agrocarburant"], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
   ptg_init : [92, 0, 2, 6], //Les valeurs initiales de pourcentage selon chaque �nergie
 }
 
 // Pour le Chauffage
 export const chauffage_initiale = {
   conso_chauffage : 53.26, // en Mtep
-	ener_chauffage : [1, 2, 3, 4, 5], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
-	enertxt_chauffage : ["Charbon", "Pétrole", "Gaz", "Electricité", "Bois-énergie (et Divers)"], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
+	ener : [1, 2, 3, 4, 5], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
+	enertxt : ["Charbon", "Pétrole", "Gaz", "Electricité", "Bois-énergie (et Divers)"], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
 	ptg_init : [1, 20, 41, 19, 19], //Les valeurs initiales de pourcentage selon chaque �nergie
 }
 
 // Pour l'industrie
 export const industrie_initiale = {
   conso_industrie : 36.55, // en Mtep
-	ener_industrie : [1, 2, 3, 4, 5], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
-	enertxt_industrie : ["Charbon", "Pétrole", "Gaz", "Electricité", "ENR - Divers"], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
+	ener : [1, 2, 3, 4, 5], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
+	enertxt : ["Charbon", "Pétrole", "Gaz", "Electricité", "ENR - Divers"], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
 	ptg_init : [13, 24, 27, 30, 6], //Les valeurs initiales de pourcentage selon chaque �nergie
 }
 

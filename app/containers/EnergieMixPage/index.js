@@ -14,7 +14,6 @@ import messages from './messages';
 
 import SliderMixEnergie from 'components/SliderMixEnergie';
 import PieGrapheComponent from 'components/PieGrapheComponent';
-
 import {
   calculEnergieMixSecteur,
   transport_initiale,
@@ -46,6 +45,9 @@ export class EnergieMixPage extends React.Component { // eslint-disable-line rea
       }
     this.secteur = this.props.params.consommation;
     if(this.props.energieMixPtg[this.secteur] === ""){
+      this.setState({
+        energie : this.mixEnergieInfo[this.secteur].ptg_init
+      })
        this.props.dispatch(modifieMixEnergieAction(this.secteur, this.mixEnergieInfo[this.secteur].ptg_init));
     }
   }
@@ -63,18 +65,34 @@ export class EnergieMixPage extends React.Component { // eslint-disable-line rea
   buildSliderList(){
     let ArrayOfSliderComponent = [];
     let EnergieMixPage = this;
+    let value = this.props.energieMixPtg[this.secteur]
     this.mixEnergieInfo[this.secteur].enertxt.forEach(function(element, index){
       ArrayOfSliderComponent.push(<SliderMixEnergie
         key={index}
         energieName={element}
         ModifieValue={EnergieMixPage.dispatchModifiedMixEnergie.bind(EnergieMixPage)}
         energieIndex={index}
+        constrainedValue={value[index]}
         />)
     })
     return ArrayOfSliderComponent;
   }
 
+  buildEnergieGrapheList(){
+    let enertxt = this.mixEnergieInfo[this.secteur].enertxt;
+    let energieGrapheList = [];
+    this.state.energie.forEach(function(element, index){
+      energieGrapheList.push({
+        name: enertxt[index],
+        y: element
+      })
+    })
+    return energieGrapheList;
+  }
+
   render() {
+    let energieGrapheList = this.buildEnergieGrapheList();
+    let grapheTitle = 'Mix énergétique - ' + this.secteur;
     return (
       <div>
         <Helmet
@@ -86,7 +104,8 @@ export class EnergieMixPage extends React.Component { // eslint-disable-line rea
         <FormattedMessage {...messages.header} />
         {this.buildSliderList()}
         <PieGrapheComponent
-        energie= {this.state.energie}
+        energieGrapheList= {energieGrapheList}
+        grapheTitle={grapheTitle}
         />
       </div>
     );

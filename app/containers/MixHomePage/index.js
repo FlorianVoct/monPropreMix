@@ -22,6 +22,7 @@ import {
   chauffage_initiale,
   industrie_initiale,
   electricite_initiale,
+  enertxt
 } from 'components/Calculation';
 
 import { modifieConso } from './actions';
@@ -35,10 +36,10 @@ export class MixHomePage extends React.PureComponent { // eslint-disable-line re
     this.state = {
       energie: calculMixEnergetique(
         conso_initiale,
-        transport_initiale.ptg_init_transport,
-        chauffage_initiale.ptg_init_chauffage,
-        industrie_initiale.ptg_init_industrie,
-        electricite_initiale.ptg_init_electricite
+        transport_initiale.ptg_init,
+        chauffage_initiale.ptg_init,
+        industrie_initiale.ptg_init,
+        electricite_initiale.ptg_init
       )
     };
 
@@ -62,14 +63,25 @@ export class MixHomePage extends React.PureComponent { // eslint-disable-line re
   updateMixEnergie(){
     let energieTemp = calculMixEnergetique(
       this.props.conso,
-      transport_initiale.ptg_init_transport,
-      chauffage_initiale.ptg_init_chauffage,
-      industrie_initiale.ptg_init_industrie,
-      electricite_initiale.ptg_init_electricite
+      transport_initiale.ptg_init,
+      chauffage_initiale.ptg_init,
+      industrie_initiale.ptg_init,
+      electricite_initiale.ptg_init
     );
     this.setState({
       energie : energieTemp
     })
+  }
+
+  buildEnergieGrapheList(){
+    let energieGrapheList = [];
+    this.state.energie.forEach(function(element, index){
+      energieGrapheList.push({
+        name: enertxt[index],
+        y: element
+      })
+    })
+    return energieGrapheList;
   }
 
   render() {
@@ -87,24 +99,28 @@ export class MixHomePage extends React.PureComponent { // eslint-disable-line re
             ModifieValue={this.dispatchModifiedConso.bind(this)}
             consoType={'elecspe'}
             />
-            <Link to={'/energiemixpage/electricite'}>Modifier le mix énergétique du chauffage</Link>
+            <Link to={'/energiemixpage/electricite'}>Modifier le mix énergétique de l électricité</Link>
         <SliderComponent
             SliderTitle={"Consommation de chauffage des bâtiments"}
             ModifieValue={this.dispatchModifiedConso.bind(this)}
             consoType={'chauffage'}
             />
+              <Link to={'/energiemixpage/chauffage'}>Modifier le mix énergétique du chauffage</Link>
         <SliderComponent
             SliderTitle={"Consommation dans les transports"}
             ModifieValue={this.dispatchModifiedConso.bind(this)}
             consoType={'transport'}
             />
+            <Link to={'/energiemixpage/transport'}>Modifier le mix énergétique des transports</Link>
         <SliderComponent
             SliderTitle={"Consommation dans l'industrie et l'agriculture"}
             ModifieValue={this.dispatchModifiedConso.bind(this)}
             consoType={'industrie'}
             />
+            <Link to={'/energiemixpage/industrie'}>Modifier le mix énergétique de l industrie et de l agriculture</Link>
         <PieGrapheComponent
-         energie= {this.state.energie}
+         energieGrapheList= {this.buildEnergieGrapheList()}
+         grapheTitle={'Mix énergétique - France Métropolitaine - 2050'}
          />
 
       </div>
