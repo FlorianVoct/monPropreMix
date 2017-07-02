@@ -19,7 +19,7 @@ import {
   calculMixEnergetique,
   conso_initiale,
   transport_initiale,
-  Chauffage_initiale,
+  chauffage_initiale,
   industrie_initiale,
   electricite_initiale,
 } from 'components/Calculation';
@@ -36,7 +36,7 @@ export class MixHomePage extends React.PureComponent { // eslint-disable-line re
       energie: calculMixEnergetique(
         conso_initiale,
         transport_initiale.ptg_init_transport,
-        Chauffage_initiale.ptg_init_chauffage,
+        chauffage_initiale.ptg_init_chauffage,
         industrie_initiale.ptg_init_industrie,
         electricite_initiale.ptg_init_electricite
       )
@@ -59,11 +59,11 @@ export class MixHomePage extends React.PureComponent { // eslint-disable-line re
     this.updateMixEnergie();
   }
 
-  updateMixEnergie(consoInitiale){
+  updateMixEnergie(){
     let energieTemp = calculMixEnergetique(
       this.props.conso,
       transport_initiale.ptg_init_transport,
-      Chauffage_initiale.ptg_init_chauffage,
+      chauffage_initiale.ptg_init_chauffage,
       industrie_initiale.ptg_init_industrie,
       electricite_initiale.ptg_init_electricite
     );

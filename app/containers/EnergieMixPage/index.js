@@ -12,7 +12,68 @@ import { createStructuredSelector } from 'reselect';
 import makeSelectEnergieMixPage from './selectors';
 import messages from './messages';
 
+import SliderMixEnergie from 'components/SliderMixEnergie';
+import PieGrapheComponent from 'components/PieGrapheComponent';
+
+import {
+  calculEnergieMixSecteur,
+  transport_initiale,
+  chauffage_initiale,
+  industrie_initiale,
+  electricite_initiale,
+} from 'components/Calculation';
+
+import { modifieMixEnergieAction } from './actions';
+import { makeSelectEnergieMix } from './selectors';
+
+
 export class EnergieMixPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  constructor(){
+    super();
+    this.state = {
+      energie: [],
+    };
+    this.mixEnergieInfo = {};
+    this.secteur = "";
+  }
+
+  componentWillMount(){
+    this.mixEnergieInfo = {
+        electricite : electricite_initiale,
+        chauffage : chauffage_initiale,
+        transport : transport_initiale,
+        industrie : industrie_initiale,
+      }
+    this.secteur = this.props.params.consommation;
+    if(this.props.energieMixPtg[this.secteur] === ""){
+       this.props.dispatch(modifieMixEnergieAction(this.secteur, this.mixEnergieInfo[this.secteur].ptg_init));
+    }
+  }
+
+  dispatchModifiedMixEnergie(energieIndex, value){
+    let mixEnergieTemp = Object.assign(this.props.energieMixPtg[this.secteur]);
+    mixEnergieTemp[energieIndex] = value;
+    let newMixEnergie = calculEnergieMixSecteur(mixEnergieTemp);
+    this.setState({
+      energie : newMixEnergie
+    })
+    this.props.dispatch(modifieMixEnergieAction(this.secteur, newMixEnergie));
+  }
+
+  buildSliderList(){
+    let ArrayOfSliderComponent = [];
+    let EnergieMixPage = this;
+    this.mixEnergieInfo[this.secteur].enertxt.forEach(function(element, index){
+      ArrayOfSliderComponent.push(<SliderMixEnergie
+        key={index}
+        energieName={element}
+        ModifieValue={EnergieMixPage.dispatchModifiedMixEnergie.bind(EnergieMixPage)}
+        energieIndex={index}
+        />)
+    })
+    return ArrayOfSliderComponent;
+  }
+
   render() {
     return (
       <div>
@@ -23,7 +84,10 @@ export class EnergieMixPage extends React.Component { // eslint-disable-line rea
           ]}
         />
         <FormattedMessage {...messages.header} />
-        {this.props.params.consommation}
+        {this.buildSliderList()}
+        <PieGrapheComponent
+        energie= {this.state.energie}
+        />
       </div>
     );
   }
@@ -34,7 +98,7 @@ EnergieMixPage.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  EnergieMixPage: makeSelectEnergieMixPage(),
+  energieMixPtg: makeSelectEnergieMix(),
 });
 
 function mapDispatchToProps(dispatch) {
