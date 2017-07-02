@@ -21,9 +21,7 @@ import {
 } from 'components/Calculation';
 
 import { modifieConso } from './actions';
-// import { makeSelectEnergieMix } from 'containers/EnergieMixPage/selectors';
-
-import Introduction from './PageComponents/Introduction';
+import { makeSelectEnergieMix } from 'containers/EnergieMixPage/selectors';
 
 
 export class MixHomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -82,14 +80,44 @@ export class MixHomePage extends React.PureComponent { // eslint-disable-line re
     return energieGrapheList;
   }
 
-  selectPage(){
-    return (<Introduction />);
-  }
-
   render() {
     return (
       <div>
-        {this.selectPage()}
+        <Helmet
+          title="MixHomePage"
+          meta={[
+            { name: 'description', content: 'Description of MixHomePage' },
+          ]}
+        />
+        <FormattedMessage {...messages.header} />
+        <SliderComponent
+            SliderTitle={"Consommation d'électricité spécifique (tertiaire et domestique)"}
+            ModifieValue={this.dispatchModifiedConso.bind(this)}
+            consoType={'elecspe'}
+            />
+            <Link to={'/energiemixpage/electricite'}>Modifier le mix énergétique de l électricité</Link>
+        <SliderComponent
+            SliderTitle={"Consommation de chauffage des bâtiments"}
+            ModifieValue={this.dispatchModifiedConso.bind(this)}
+            consoType={'chauffage'}
+            />
+              <Link to={'/energiemixpage/chauffage'}>Modifier le mix énergétique du chauffage</Link>
+        <SliderComponent
+            SliderTitle={"Consommation dans les transports"}
+            ModifieValue={this.dispatchModifiedConso.bind(this)}
+            consoType={'transport'}
+            />
+            <Link to={'/energiemixpage/transport'}>Modifier le mix énergétique des transports</Link>
+        <SliderComponent
+            SliderTitle={"Consommation dans l'industrie et l'agriculture"}
+            ModifieValue={this.dispatchModifiedConso.bind(this)}
+            consoType={'industrie'}
+            />
+            <Link to={'/energiemixpage/industrie'}>Modifier le mix énergétique de l industrie et de l agriculture</Link>
+        <PieGrapheComponent
+         energieGrapheList= {this.buildEnergieGrapheList()}
+         grapheTitle={'Mix énergétique - France Métropolitaine - 2050'}
+         />
       </div>
     );
   }
@@ -106,7 +134,7 @@ MixHomePage.propTypes = {
 const mapStateToProps = createStructuredSelector({
   MixHomePage: makeSelectMixHomePage(),
   conso: makeSelectConso(),
-  // energieMixPtg: makeSelectEnergieMix(),
+  energieMixPtg: makeSelectEnergieMix(),
 });
 
 function mapDispatchToProps(dispatch) {

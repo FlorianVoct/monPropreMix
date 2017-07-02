@@ -43,7 +43,10 @@ const config = {
     series: [{
         name: 'Energies',
         data: []
-    }]
+    }],
+    credits: {
+      enabled: false,
+    }
 };
 
 
@@ -52,7 +55,7 @@ class PieGrapheComponent extends React.PureComponent { // eslint-disable-line re
   componentWillReceiveProps(nextProps) {
     let chart = this.refs.chart.getChart();
     chart.series[0].setData(nextProps.energieGrapheList, true);
-    chart.setTitle({ text: nextProps.grapheTitle});
+    chart.setTitle({ text: this.props.grapheTitle}, true);
   }
 
   render() {
