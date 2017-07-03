@@ -62,6 +62,7 @@ export class MixHomePage extends React.PureComponent { // eslint-disable-line re
       sector : mixPtg
     }
     this.setState(stateObject);
+    this.forceUpdate();
   }
 
   updateMixEnergie(){
