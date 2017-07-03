@@ -153,51 +153,53 @@ export function calculMixEnergetique(conso, ptg_transport, ptg_chauffage, ptg_in
 	return energie;
 }
 
-// // Pour conaitre les �missions de GES
-// 		public static float [] calcul_ges(float [] ener_fos){
-// 			float [] ges = new float [4];
-// 			ges[0]=(ener_fos[0]*emission_charbon+ener_fos[1]*emission_petrole+
-// 					ener_fos[2]*emission_gaz)/population_initiale;
-// 			ges[1]=ener_fos[0]*emission_charbon+ener_fos[1]*emission_petrole+
-// 					ener_fos[2]*emission_gaz;
-//
-// 			return ges;
-// 		}
-//
-//
-	// Pour toujours avoir 100 de total de pourcentage d'énergie dans un secteur
-	export function calculEnergieMixSecteur(mixEnergieSecteur, lockArray){
-		let mixEnergieSecteurTemp = mixEnergieSecteur;
-		let somme = 0;
-		let somme_bloquee = 0;
-		for(let i = 0; i < mixEnergieSecteurTemp.length; i++)
+// Pour conaitre les émissions de GES
+export function calculGes(energieFossiles){
+	let ges = {};
+	ges.parHabitant = (energieFossiles[0]*emmissionGES.emission_charbon+
+      energieFossiles[1]*emmissionGES.emission_petrole+
+			energieFossiles[2]*emmissionGES.emission_gaz)/population_initiale.population;
+	ges.total = energieFossiles[0]*emmissionGES.emission_charbon+
+      energieFossiles[1]*emmissionGES.emission_petrole+
+			energieFossiles[2]*emmissionGES.emission_gaz;
+
+	return ges;
+}
+
+
+// Pour toujours avoir 100 de total de pourcentage d'énergie dans un secteur
+export function calculEnergieMixSecteur(mixEnergieSecteur, lockArray){
+	let mixEnergieSecteurTemp = mixEnergieSecteur;
+	let somme = 0;
+	let somme_bloquee = 0;
+	for(let i = 0; i < mixEnergieSecteurTemp.length; i++)
+	{
+		somme=somme+mixEnergieSecteurTemp[i];
+		if(lockArray[i]==false)
 		{
-			somme=somme+mixEnergieSecteurTemp[i];
-			if(lockArray[i]==false)
-			{
-				somme_bloquee=somme_bloquee+mixEnergieSecteurTemp[i];
-				if(somme_bloquee>=100)
-				{lockArray[i]=true;
-				somme_bloquee=somme_bloquee-mixEnergieSecteurTemp[i];}
-			}
+			somme_bloquee=somme_bloquee+mixEnergieSecteurTemp[i];
+			if(somme_bloquee>=100)
+			{lockArray[i]=true;
+			somme_bloquee=somme_bloquee-mixEnergieSecteurTemp[i];}
 		}
-		while(somme!=100){
-			if(somme>100){
-				for(let i=0; i<mixEnergieSecteurTemp.length;i++)
-				{if(lockArray[i]==true && somme>100 && mixEnergieSecteurTemp[i]>0){
-					mixEnergieSecteurTemp[i]--;
-					somme--;
-				}
-				}
-			}
-			else{
-				for(let i=0; i<mixEnergieSecteurTemp.length;i++)
-				{if(lockArray[i]==true && somme<100){
-					mixEnergieSecteurTemp[i]++;
-					somme++;
-				}
-				}
-			}
-		}
-		return mixEnergieSecteurTemp;
 	}
+	while(somme!=100){
+		if(somme>100){
+			for(let i=0; i<mixEnergieSecteurTemp.length;i++)
+			{if(lockArray[i]==true && somme>100 && mixEnergieSecteurTemp[i]>0){
+				mixEnergieSecteurTemp[i]--;
+				somme--;
+			}
+			}
+		}
+		else{
+			for(let i=0; i<mixEnergieSecteurTemp.length;i++)
+			{if(lockArray[i]==true && somme<100){
+				mixEnergieSecteurTemp[i]++;
+				somme++;
+			}
+			}
+		}
+	}
+	return mixEnergieSecteurTemp;
+}
