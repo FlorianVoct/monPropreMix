@@ -27,6 +27,12 @@ class SliderMixEnergie extends React.PureComponent { // eslint-disable-line reac
     })
   }
 
+  componentWillMount(){
+    this.setState({
+      currentValue: this.props.constrainedValue
+    })
+  }
+
   onAfterSliderChange(value){
     this.props.ModifieValue(this.props.energieIndex, value);
   }
@@ -38,7 +44,6 @@ class SliderMixEnergie extends React.PureComponent { // eslint-disable-line reac
   }
 
   render() {
-    console.log()
     return (
       <div>
         <p>{this.props.energieName} {' - '} {this.state.currentValue} {' %'}</p>

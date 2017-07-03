@@ -81,7 +81,6 @@ export class HomeMix extends React.PureComponent { // eslint-disable-line react/
   }
 
   render() {
-    console.log(this.props.conso);
     return (
       <div>
       <SliderComponent
