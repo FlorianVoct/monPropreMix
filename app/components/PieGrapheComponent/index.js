@@ -6,17 +6,11 @@
 
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import Slider from 'rc-slider';
-import 'rc-slider/assets/index.css';
 
 import { Container } from './style';
 import ReactHighcharts from 'react-highcharts';
 
-import { FormattedMessage } from 'react-intl';
-import messages from './messages';
-
 const config = {
-
   chart: {
         plotBackgroundColor: null,
         plotBorderWidth: null,
@@ -52,11 +46,7 @@ const config = {
 
 class PieGrapheComponent extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
-
-
-
   componentWillReceiveProps(nextProps) {
-    console.log('dans le nextProps du graphe', nextProps.energieGrapheList);
     let chart = this.refs.chart.getChart();
     chart.series[0].setData(nextProps.energieGrapheList, true);
     chart.setTitle({ text: nextProps.grapheTitle});

@@ -54,9 +54,11 @@ export class MixHomePage extends React.PureComponent { // eslint-disable-line re
     this.setState({
       conso : consoTemp
     })
+    this.forceUpdate();
   }
 
   updateMixEnergie(){
+    console.log('recalcule');
     let energieTemp = calculMixEnergetique(
       this.state.conso,
       this.state.transport,
@@ -102,7 +104,8 @@ export class MixHomePage extends React.PureComponent { // eslint-disable-line re
           selectPage= {this.changeCurrentPage.bind(this)}
           selectSector= {this.changeCurrentSector.bind(this)}
           energieGrapheList= {this.buildEnergieGrapheList()}
-          dispatchModifiedConso={this.changeConso.bind(this)}
+          changeConso={this.changeConso.bind(this)}
+          conso= {this.state.conso}
           />);
       case 'SectorMix':
         return (<SectorMix

@@ -37,14 +37,11 @@ export class HomeMix extends React.PureComponent { // eslint-disable-line react/
   //   this.updateMixEnergie();
   //
   // }
-  //
-  // dispatchModifiedConso(consoType, value){
-  //   let consoTemp = Object.assign(this.props.conso);
-  //   consoTemp[consoType] = value;
-  //   this.props.dispatch(modifieConso(consoTemp));
-  //   this.updateMixEnergie();
-  // }
-  //
+
+  changeConso(consoType, value){
+    this.props.changeConso(consoType, value);
+  }
+
   // updateMixEnergie(){
   //   console.log('conso ', this.props.conso);
   //   console.log('conso ', this.props.conso);
@@ -84,13 +81,14 @@ export class HomeMix extends React.PureComponent { // eslint-disable-line react/
   }
 
   render() {
-    console.log(this.props.energieGrapheList);
+    console.log(this.props.conso);
     return (
       <div>
       <SliderComponent
           SliderTitle={"Consommation d'électricité spécifique (tertiaire et domestique)"}
-          ModifieValue={this.props.dispatchModifiedConso}
+          ModifieValue={this.props.changeConso}
           consoType={'elecspe'}
+          constrainedValue={this.props.conso.elecspe}
           />
           <div
            onClick={this.sectorMixPage.bind(this, 'electricite')}
@@ -98,8 +96,9 @@ export class HomeMix extends React.PureComponent { // eslint-disable-line react/
           </div>
       <SliderComponent
           SliderTitle={"Consommation de chauffage des bâtiments"}
-          ModifieValue={this.props.dispatchModifiedConso}
+          ModifieValue={this.props.changeConso}
           consoType={'chauffage'}
+          constrainedValue={this.props.conso.chauffage}
           />
           <div
            onClick={this.sectorMixPage.bind(this, 'chauffage')}
@@ -107,8 +106,9 @@ export class HomeMix extends React.PureComponent { // eslint-disable-line react/
           </div>
       <SliderComponent
           SliderTitle={"Consommation dans les transports"}
-          ModifieValue={this.props.dispatchModifiedConso}
+          ModifieValue={this.props.changeConso}
           consoType={'transport'}
+          constrainedValue={this.props.conso.transport}
           />
           <div
            onClick={this.sectorMixPage.bind(this, 'transport')}
@@ -116,8 +116,9 @@ export class HomeMix extends React.PureComponent { // eslint-disable-line react/
           </div>
       <SliderComponent
           SliderTitle={"Consommation dans l'industrie et l'agriculture"}
-          ModifieValue={this.props.dispatchModifiedConso}
+          ModifieValue={this.props.changeConso}
           consoType={'industrie'}
+          constrainedValue={this.props.conso.industrie}
           />
           <div
            onClick={this.sectorMixPage.bind(this, 'industrie')}

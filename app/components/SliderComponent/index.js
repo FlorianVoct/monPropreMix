@@ -20,29 +20,43 @@ class SliderComponent extends React.PureComponent { // eslint-disable-line react
   constructor(){
     super();
     this.state = {
-      value: 100
+      currentValue: 100,
     }
   }
 
-  onSliderChange(value){
-    // console.log(value);
-    // console.log(this.props.consoType);
-    this.props.ModifieValue(this.props.consoType, value);
+  componentWillMount(){
     this.setState({
-      value: value
+      currentValue: this.props.constrainedValue
+    })
+  }
+
+  componentWillReceiveProps(nextProps){
+    this.setState({
+      currentValue: nextProps.constrainedValue
+    })
+  }
+
+  onAfterSliderChange(value){
+    this.props.ModifieValue(this.props.consoType, value);
+  }
+
+  onSliderChange(value){
+    this.setState({
+      currentValue: value
     })
   }
 
   render() {
     return (
       <div>
-        <p>{this.props.SliderTitle} {' - '} {this.state.value} {' %'}</p>
+        <p>{this.props.SliderTitle} {' - '} {this.state.currentValue} {' %'}</p>
         <SliderDiv>
           <Slider
             min={0}
             max={100}
-            onAfterChange={this.onSliderChange.bind(this)}
-            defaultValue={100}
+            onChange={this.onSliderChange.bind(this)}
+            onAfterChange={this.onAfterSliderChange.bind(this)}
+            value={this.state.currentValue}
             />
         </SliderDiv>
       </div>
@@ -54,6 +68,7 @@ SliderComponent.propTypes = {
   SliderTitle: PropTypes.string,
   ModifieValue: PropTypes.func,
   consoType: PropTypes.string,
+  constrainedValue: PropTypes.number,
 };
 
 export default SliderComponent;
