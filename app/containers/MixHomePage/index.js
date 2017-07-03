@@ -25,7 +25,7 @@ import {
   electricite_initiale,
 } from 'components/Calculation';
 
-import { modifieConso, modifieMixEnergieAction } from './actions';
+// import { modifieConso, modifieMixEnergieAction } from './actions';
 // import { makeSelectEnergieMix } from 'containers/EnergieMixPage/selectors';
 
 import Introduction from './PageComponents/Introduction';
@@ -41,10 +41,22 @@ export class MixHomePage extends React.PureComponent { // eslint-disable-line re
       currentPage: 'Introduction',
       currentSector : 'electricite',
       conso: conso_initiale,
-      electricite: electricite_initiale.ptg_init,
-      chauffage: chauffage_initiale.ptg_init,
-      transport: transport_initiale.ptg_init,
-      industrie: industrie_initiale.ptg_init,
+      electricite: {
+        ptg : electricite_initiale.ptg_init,
+        lock : electricite_initiale.lock_init
+      },
+      chauffage: {
+        ptg : chauffage_initiale.ptg_init,
+        lock : chauffage_initiale.lock_init
+      },
+      transport: {
+        ptg : transport_initiale.ptg_init,
+        lock : transport_initiale.lock_init
+      },
+      industrie: {
+        ptg : industrie_initiale.ptg_init,
+        lock : industrie_initiale.lock_init
+      }
     }
   }
 
@@ -59,7 +71,9 @@ export class MixHomePage extends React.PureComponent { // eslint-disable-line re
 
   changeSectorMixEnergie(sector, mixPtg){
     let stateObject = {
-      sector : mixPtg
+      sector : {
+        ptg : mixPtg
+      }
     }
     this.setState(stateObject);
     this.forceUpdate();
@@ -69,10 +83,10 @@ export class MixHomePage extends React.PureComponent { // eslint-disable-line re
     console.log('recalcule');
     let energieTemp = calculMixEnergetique(
       this.state.conso,
-      this.state.transport,
-      this.state.chauffage,
-      this.state.industrie,
-      this.state.electricite,
+      this.state.transport.ptg,
+      this.state.chauffage.ptg,
+      this.state.industrie.ptg,
+      this.state.electricite.ptg,
     );
     return energieTemp;
   }
@@ -119,7 +133,7 @@ export class MixHomePage extends React.PureComponent { // eslint-disable-line re
         return (<SectorMix
           selectPage = {this.changeCurrentPage.bind(this)}
           sector = {this.state.currentSector}
-          sectorMixPtg = {this.state[this.state.currentSector]}
+          sectorMixPtg = {this.state[this.state.currentSector].ptg}
           changeSectorMixEnergie= {this.changeSectorMixEnergie.bind(this)}
           />);
       default:
@@ -147,8 +161,8 @@ MixHomePage.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  Store: makeSelectMixHomePage(),
-  conso: makeSelectConso(),
+  // Store: makeSelectMixHomePage(),
+  // conso: makeSelectConso(),
   // energieMixPtg: makeSelectEnergieMix(),
 });
 
