@@ -39,64 +39,38 @@ export class MixHomePage extends React.PureComponent { // eslint-disable-line re
     super();
     this.state = {
       currentPage: 'Introduction',
-      energie: []
+      currentSector : 'electricite',
+      conso: conso_initiale,
+      electricite: electricite_initiale.ptg_init,
+      chauffage: chauffage_initiale.ptg_init,
+      transport: transport_initiale.ptg_init,
+      industrie: industrie_initiale.ptg_init,
     }
   }
 
-  componentWillMount(){
-    console.log('on est ici')
-    console.log("on est dans comp will mount", conso_initiale);
-    console.log(electricite_initiale.ptg_init);
-    console.log(chauffage_initiale.ptg_init);
-    console.log(transport_initiale.ptg_init);
-    console.log(industrie_initiale.ptg_init);
-
-
-
-    this.props.dispatch(modifieConso(conso_initiale));
-    this.props.dispatch(modifieMixEnergieAction('electricite', electricite_initiale.ptg_init));
-    this.props.dispatch(modifieMixEnergieAction('chauffage', chauffage_initiale.ptg_init));
-    this.props.dispatch(modifieMixEnergieAction('transport', transport_initiale.ptg_init));
-    this.props.dispatch(modifieMixEnergieAction('industrie', industrie_initiale.ptg_init));
-    this.updateMixEnergie();
-  }
-
-  // // on initialize le store (pas réussi à le faire directement dans le
-  // // reducer)
-  // componentWillMount(){
-  //   this.updateMixEnergie();
-  //
-  // }
-
-  dispatchModifiedConso(consoType, value){
-    let consoTemp = Object.assign(this.props.conso);
+  changeConso(consoType, value){
+    let consoTemp = Object.assign(this.state.conso);
     consoTemp[consoType] = value;
-    this.props.dispatch(modifieConso(consoTemp));
-    this.updateMixEnergie();
+    this.setState({
+      conso : consoTemp
+    })
   }
 
   updateMixEnergie(){
-    console.log('conso ', this.props.conso);
-    console.log('conso ', this.props.conso);
-    // console.log(this.props.conso);
-    // console.log(this.props.conso);
-    // let energieTemp = calculMixEnergetique(
-    //   this.props.conso,
-    //   ,
-    //   ,
-    //   ,
-    //
-    // );
-
-    this.setState({
-      energie : [2, 3],
-      energieGrapheList: this.buildEnergieGrapheList()
-    })
+    let energieTemp = calculMixEnergetique(
+      this.state.conso,
+      this.state.transport,
+      this.state.chauffage,
+      this.state.industrie,
+      this.state.electricite,
+    );
+    return energieTemp;
   }
 
   buildEnergieGrapheList(){
     let energieGrapheList = [];
-    this.state.energie.forEach(function(element, index){
+    let energieTemp = this.updateMixEnergie();
+    energieTemp.forEach(function(element, index){
       energieGrapheList.push({
         name: enertxt[index],
         y: element
@@ -127,13 +101,13 @@ export class MixHomePage extends React.PureComponent { // eslint-disable-line re
         return (<HomeMix
           selectPage= {this.changeCurrentPage.bind(this)}
           selectSector= {this.changeCurrentSector.bind(this)}
-          energieGrapheList= {this.state.energieGrapheList}
-          dispatchModifiedConso={this.dispatchModifiedConso.bind(this)}
+          energieGrapheList= {this.buildEnergieGrapheList()}
+          dispatchModifiedConso={this.changeConso.bind(this)}
           />);
       case 'SectorMix':
         return (<SectorMix
           selectPage = {this.changeCurrentPage.bind(this)}
-          sector = {this.state.sector}
+          sector = {this.state.currentSector}
           />);
       default:
       return (<Introduction

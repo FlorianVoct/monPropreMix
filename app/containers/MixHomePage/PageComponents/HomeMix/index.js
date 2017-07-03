@@ -84,6 +84,7 @@ export class HomeMix extends React.PureComponent { // eslint-disable-line react/
   }
 
   render() {
+    console.log(this.props.energieGrapheList);
     return (
       <div>
       <SliderComponent
@@ -143,10 +144,7 @@ export class HomeMix extends React.PureComponent { // eslint-disable-line react/
 }
 
 HomeMix.propTypes = {
-  conso: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object
-  ])
+
 };
 
 export default HomeMix;
