@@ -21,9 +21,10 @@ export const population_initiale = {
 // Pour le transport
 export const transport_initiale = {
   conso_transport : 49.18, // en Mtep
-  ener : [2, 3, 4, 5], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
+  ener : [2, 3, 4, 5], //2 pour pétrole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
   enertxt : ["Pétrole", "Gaz", "Electricité", "Agrocarburant"], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
   ptg_init : [92, 0, 2, 6], //Les valeurs initiales de pourcentage selon chaque �nergie
+  lock_init : [true, true, true, true] // les valeurs initiale de lock dans le mix secteur
 }
 
 // Pour le Chauffage
@@ -32,6 +33,7 @@ export const chauffage_initiale = {
 	ener : [1, 2, 3, 4, 5], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
 	enertxt : ["Charbon", "Pétrole", "Gaz", "Electricité", "Bois-énergie (et Divers)"], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
 	ptg_init : [1, 20, 41, 19, 19], //Les valeurs initiales de pourcentage selon chaque �nergie
+  lock_init : [true, true, true, true, true] // les valeurs initiale de lock dans le mix secteur
 }
 
 // Pour l'industrie
@@ -40,6 +42,7 @@ export const industrie_initiale = {
 	ener : [1, 2, 3, 4, 5], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
 	enertxt : ["Charbon", "Pétrole", "Gaz", "Electricité", "ENR - Divers"], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
 	ptg_init : [13, 24, 27, 30, 6], //Les valeurs initiales de pourcentage selon chaque �nergie
+  lock_init : [true, true, true, true, true] // les valeurs initiale de lock dans le mix secteur
 }
 
 // Pour l'électtricité
@@ -49,6 +52,7 @@ export const electricite_initiale = {
 	ener : [1, 2, 3, 6, 7, 8, 9, 10, 11, 12, 13, 14], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
 	enertxt : ["Charbon","Pétrole", "Gaz", "Nucléaire", "Hydraulique", "Eolien terrestre", "Eolien Offshore", "Energie marine", "Solaire PV", "Bois-énergie", "Biogaz", "Divers"], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
 	ptg_init : [3, 1, 4, 75, 12, 3, 0, 0, 1, 1, 0, 0], //Les valeurs initiales de pourcentage selon chaque �nergie
+  lock_init : [true, true, true, true, true, true, true, true, true, true, true, true], // les valeurs initiale de lock dans le mix secteur
 }
 
 // Conversion énergie finale / énergie primaire
@@ -162,27 +166,25 @@ export function calculMixEnergetique(conso, ptg_transport, ptg_chauffage, ptg_in
 //
 //
 	// Pour toujours avoir 100 de total de pourcentage d'énergie dans un secteur
-	export function calculEnergieMixSecteur(mixEnergieSecteur){
-    let cadenas = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,
-    true, true, true, true, true, true, true, true];
+	export function calculEnergieMixSecteur(mixEnergieSecteur, lockArray){
 		let mixEnergieSecteurTemp = mixEnergieSecteur;
 		let somme = 0;
 		let somme_bloquee = 0;
 		for(let i = 0; i < mixEnergieSecteurTemp.length; i++)
 		{
 			somme=somme+mixEnergieSecteurTemp[i];
-			if(cadenas[i]==false)
+			if(lockArray[i]==false)
 			{
 				somme_bloquee=somme_bloquee+mixEnergieSecteurTemp[i];
 				if(somme_bloquee>=100)
-				{cadenas[i]=true;
+				{lockArray[i]=true;
 				somme_bloquee=somme_bloquee-mixEnergieSecteurTemp[i];}
 			}
 		}
 		while(somme!=100){
 			if(somme>100){
 				for(let i=0; i<mixEnergieSecteurTemp.length;i++)
-				{if(cadenas[i]==true && somme>100 && mixEnergieSecteurTemp[i]>0){
+				{if(lockArray[i]==true && somme>100 && mixEnergieSecteurTemp[i]>0){
 					mixEnergieSecteurTemp[i]--;
 					somme--;
 				}
@@ -190,7 +192,7 @@ export function calculMixEnergetique(conso, ptg_transport, ptg_chauffage, ptg_in
 			}
 			else{
 				for(let i=0; i<mixEnergieSecteurTemp.length;i++)
-				{if(cadenas[i]==true && somme<100){
+				{if(lockArray[i]==true && somme<100){
 					mixEnergieSecteurTemp[i]++;
 					somme++;
 				}

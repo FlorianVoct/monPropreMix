@@ -31,16 +31,23 @@ export class SectorMix extends React.Component { // eslint-disable-line react/pr
   }
 
   changeSectorMixEnergie(energieIndex, value){
-    let mixEnergieTemp = Object.assign(this.props.sectorMixPtg);
+    let mixEnergieTemp = Object.assign(this.props.sectorMixPtgAndLock.ptg);
     mixEnergieTemp[energieIndex] = value;
-    let newMixEnergie = calculEnergieMixSecteur(mixEnergieTemp);
+    let newMixEnergie = calculEnergieMixSecteur(mixEnergieTemp, this.props.sectorMixPtgAndLock.lock);
     this.props.changeSectorMixEnergie(this.props.sector, newMixEnergie);
+  }
+
+  changeLockState(energieIndex, lockState){
+    let lockByEnergy = Object.assign(this.props.sectorMixPtgAndLock.lock);
+    lockByEnergy[energieIndex] = lockState;
+    this.props.changeLockState(this.props.sector, lockByEnergy)
   }
 
   buildSliderList(){
     let ArrayOfSliderComponent = [];
     let EnergieMixPage = this;
-    let value = this.props.sectorMixPtg;
+    let value = this.props.sectorMixPtgAndLock.ptg;
+    let lockState = this.props.sectorMixPtgAndLock.lock;
     this.mixEnergieInfo[this.props.sector].enertxt.forEach(function(element, index){
       ArrayOfSliderComponent.push(<SliderMixEnergie
         key={index}
@@ -48,6 +55,8 @@ export class SectorMix extends React.Component { // eslint-disable-line react/pr
         ModifieValue={EnergieMixPage.changeSectorMixEnergie.bind(EnergieMixPage)}
         energieIndex={index}
         constrainedValue={value[index]}
+        lockState={lockState[index]}
+        changeLockState={EnergieMixPage.changeLockState.bind(EnergieMixPage)}
         />)
     })
     return ArrayOfSliderComponent;
@@ -56,7 +65,7 @@ export class SectorMix extends React.Component { // eslint-disable-line react/pr
   buildEnergieGrapheList(){
     let enertxt = this.mixEnergieInfo[this.props.sector].enertxt;
     let energieGrapheList = [];
-    let energieMix = Object.assign(this.props.sectorMixPtg);
+    let energieMix = Object.assign(this.props.sectorMixPtgAndLock.ptg);
     energieMix.forEach(function(element, index){
       energieGrapheList.push({
         name: enertxt[index],
@@ -89,6 +98,8 @@ export class SectorMix extends React.Component { // eslint-disable-line react/pr
 }
 
 SectorMix.propTypes = {
+  sectorMixPtgAndLock: PropTypes.object,
+  changeLockState: PropTypes.func,
 };
 
 export default SectorMix;
