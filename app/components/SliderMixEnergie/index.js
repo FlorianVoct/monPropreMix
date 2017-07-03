@@ -37,6 +37,10 @@ class SliderMixEnergie extends React.PureComponent { // eslint-disable-line reac
     this.props.ModifieValue(this.props.energieIndex, value);
   }
 
+  changeLockState(){
+    this.props.changeLockState(this.props.energieIndex, !this.props.lockState);
+  }
+
   onSliderChange(value){
     this.setState({
       currentValue: value
@@ -44,9 +48,14 @@ class SliderMixEnergie extends React.PureComponent { // eslint-disable-line reac
   }
 
   render() {
+    let lockText = "Débloquer";
+    if(this.props.lockState){
+      lockText = "Bloquer";
+    }
     return (
       <div>
         <p>{this.props.energieName} {' - '} {this.state.currentValue} {' %'}</p>
+        <p onClick={this.changeLockState.bind(this)} >{lockText}</p>
         <SliderDiv>
           <Slider
             min={0}
@@ -66,6 +75,8 @@ SliderMixEnergie.propTypes = {
   ModifieValue: PropTypes.func,
   energieIndex: PropTypes.number,
   constrainedValue: PropTypes.number,
+  lockState: PropTypes.bool,
+  changeLockState: PropTypes.func,
 };
 
 export default SliderMixEnergie;

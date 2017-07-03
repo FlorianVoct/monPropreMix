@@ -166,27 +166,25 @@ export function calculMixEnergetique(conso, ptg_transport, ptg_chauffage, ptg_in
 //
 //
 	// Pour toujours avoir 100 de total de pourcentage d'énergie dans un secteur
-	export function calculEnergieMixSecteur(mixEnergieSecteur){
-    let cadenas = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,
-    true, true, true, true, true, true, true, true];
+	export function calculEnergieMixSecteur(mixEnergieSecteur, lockArray){
 		let mixEnergieSecteurTemp = mixEnergieSecteur;
 		let somme = 0;
 		let somme_bloquee = 0;
 		for(let i = 0; i < mixEnergieSecteurTemp.length; i++)
 		{
 			somme=somme+mixEnergieSecteurTemp[i];
-			if(cadenas[i]==false)
+			if(lockArray[i]==false)
 			{
 				somme_bloquee=somme_bloquee+mixEnergieSecteurTemp[i];
 				if(somme_bloquee>=100)
-				{cadenas[i]=true;
+				{lockArray[i]=true;
 				somme_bloquee=somme_bloquee-mixEnergieSecteurTemp[i];}
 			}
 		}
 		while(somme!=100){
 			if(somme>100){
 				for(let i=0; i<mixEnergieSecteurTemp.length;i++)
-				{if(cadenas[i]==true && somme>100 && mixEnergieSecteurTemp[i]>0){
+				{if(lockArray[i]==true && somme>100 && mixEnergieSecteurTemp[i]>0){
 					mixEnergieSecteurTemp[i]--;
 					somme--;
 				}
@@ -194,7 +192,7 @@ export function calculMixEnergetique(conso, ptg_transport, ptg_chauffage, ptg_in
 			}
 			else{
 				for(let i=0; i<mixEnergieSecteurTemp.length;i++)
-				{if(cadenas[i]==true && somme<100){
+				{if(lockArray[i]==true && somme<100){
 					mixEnergieSecteurTemp[i]++;
 					somme++;
 				}

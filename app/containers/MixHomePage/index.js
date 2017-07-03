@@ -79,6 +79,16 @@ export class MixHomePage extends React.PureComponent { // eslint-disable-line re
     this.forceUpdate();
   }
 
+  changeLockState(sector, lockByEnergy){
+    let stateObject = {
+      sector : {
+        lock : lockByEnergy
+      }
+    }
+    this.setState(stateObject);
+    this.forceUpdate();
+  }
+
   updateMixEnergie(){
     console.log('recalcule');
     let energieTemp = calculMixEnergetique(
@@ -133,8 +143,9 @@ export class MixHomePage extends React.PureComponent { // eslint-disable-line re
         return (<SectorMix
           selectPage = {this.changeCurrentPage.bind(this)}
           sector = {this.state.currentSector}
-          sectorMixPtg = {this.state[this.state.currentSector].ptg}
-          changeSectorMixEnergie= {this.changeSectorMixEnergie.bind(this)}
+          sectorMixPtgAndLock = {this.state[this.state.currentSector]}
+          changeSectorMixEnergie = {this.changeSectorMixEnergie.bind(this)}
+          changeLockState = {this.changeLockState.bind(this)}
           />);
       default:
       return (<Introduction
