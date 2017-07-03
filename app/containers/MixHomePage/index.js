@@ -11,100 +11,127 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import makeSelectMixHomePage, {makeSelectConso} from './selectors';
 import messages from './messages';
+import { Link } from 'react-router';
 
 import SliderComponent from 'components/SliderComponent';
 import PieGrapheComponent from 'components/PieGrapheComponent';
 import {
   calculMixEnergetique,
+  enertxt,
   conso_initiale,
   transport_initiale,
-  Chauffage_initiale,
+  chauffage_initiale,
   industrie_initiale,
   electricite_initiale,
 } from 'components/Calculation';
 
-import { modifieConso } from './actions';
+import { modifieConso, modifieMixEnergieAction } from './actions';
+// import { makeSelectEnergieMix } from 'containers/EnergieMixPage/selectors';
 
-import { PieChart, Pie } from 'recharts';
+import Introduction from './PageComponents/Introduction';
+import HomeMix from './PageComponents/HomeMix';
+import SectorMix from './PageComponents/SectorMix';
+
 
 export class MixHomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   constructor(){
     super();
     this.state = {
-      energie: calculMixEnergetique(
-        conso_initiale,
-        transport_initiale.ptg_init_transport,
-        Chauffage_initiale.ptg_init_chauffage,
-        industrie_initiale.ptg_init_industrie,
-        electricite_initiale.ptg_init_electricite
-      )
-    };
-
-  }
-
-  // on initialize le store (pas réussi à le faire directement dans le
-  // reducer)
-  componentWillMount(){
-    if(this.props.conso === ""){
-       this.props.dispatch(modifieConso(conso_initiale));
+      currentPage: 'Introduction',
+      currentSector : 'electricite',
+      conso: conso_initiale,
+      electricite: electricite_initiale.ptg_init,
+      chauffage: chauffage_initiale.ptg_init,
+      transport: transport_initiale.ptg_init,
+      industrie: industrie_initiale.ptg_init,
     }
   }
 
-  dispatchModifiedConso(consoType, value){
-    let consoTemp = Object.assign(this.props.conso);
+  changeConso(consoType, value){
+    let consoTemp = Object.assign(this.state.conso);
     consoTemp[consoType] = value;
-    this.props.dispatch(modifieConso(consoTemp));
-    this.updateMixEnergie();
+    this.setState({
+      conso : consoTemp
+    })
+    this.forceUpdate();
   }
 
-  updateMixEnergie(consoInitiale){
+  changeSectorMixEnergie(sector, mixPtg){
+    let stateObject = {
+      sector : mixPtg
+    }
+    this.setState(stateObject);
+  }
+
+  updateMixEnergie(){
+    console.log('recalcule');
     let energieTemp = calculMixEnergetique(
-      this.props.conso,
-      transport_initiale.ptg_init_transport,
-      Chauffage_initiale.ptg_init_chauffage,
-      industrie_initiale.ptg_init_industrie,
-      electricite_initiale.ptg_init_electricite
+      this.state.conso,
+      this.state.transport,
+      this.state.chauffage,
+      this.state.industrie,
+      this.state.electricite,
     );
-    this.setState({
-      energie : energieTemp
+    return energieTemp;
+  }
+
+  buildEnergieGrapheList(){
+    let energieGrapheList = [];
+    let energieTemp = this.updateMixEnergie();
+    energieTemp.forEach(function(element, index){
+      energieGrapheList.push({
+        name: enertxt[index],
+        y: element
+      })
     })
+    return energieGrapheList;
+  }
+
+  changeCurrentPage(currentPage){
+    this.setState({
+      currentPage: currentPage
+    })
+  }
+
+  changeCurrentSector(currentSector){
+    this.setState({
+      currentSector: currentSector
+    })
+  }
+
+  selectPage(page){
+    switch (this.state.currentPage){
+      case 'Introduction':
+        return (<Introduction
+          selectPage= {this.changeCurrentPage.bind(this)}
+          />);
+      case 'HomeMix':
+        return (<HomeMix
+          selectPage= {this.changeCurrentPage.bind(this)}
+          selectSector= {this.changeCurrentSector.bind(this)}
+          energieGrapheList= {this.buildEnergieGrapheList()}
+          changeConso={this.changeConso.bind(this)}
+          conso= {this.state.conso}
+          />);
+      case 'SectorMix':
+        return (<SectorMix
+          selectPage = {this.changeCurrentPage.bind(this)}
+          sector = {this.state.currentSector}
+          sectorMixPtg = {this.state[this.state.currentSector]}
+          changeSectorMixEnergie= {this.changeSectorMixEnergie.bind(this)}
+          />);
+      default:
+      return (<Introduction
+        selectHomeMix= {this.changeCurrentPage.bind(this)}
+        />);
+    }
   }
 
   render() {
     return (
       <div>
-        <Helmet
-          title="MixHomePage"
-          meta={[
-            { name: 'description', content: 'Description of MixHomePage' },
-          ]}
-        />
-        <FormattedMessage {...messages.header} />
-        <SliderComponent
-            SliderTitle={"Consommation d'électricité spécifique (tertiaire et domestique)"}
-            ModifieValue={this.dispatchModifiedConso.bind(this)}
-            consoType={'elecspe'}
-            />
-        <SliderComponent
-            SliderTitle={"Consommation de chauffage des bâtiments"}
-            ModifieValue={this.dispatchModifiedConso.bind(this)}
-            consoType={'chauffage'}
-            />
-        <SliderComponent
-            SliderTitle={"Consommation dans les transports"}
-            ModifieValue={this.dispatchModifiedConso.bind(this)}
-            consoType={'transport'}
-            />
-        <SliderComponent
-            SliderTitle={"Consommation dans l'industrie et l'agriculture"}
-            ModifieValue={this.dispatchModifiedConso.bind(this)}
-            consoType={'industrie'}
-            />
-        <PieGrapheComponent
-         energie= {this.state.energie}
-         />
-
+        {this.selectPage()}
       </div>
     );
   }
@@ -119,8 +146,9 @@ MixHomePage.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  MixHomePage: makeSelectMixHomePage(),
+  Store: makeSelectMixHomePage(),
   conso: makeSelectConso(),
+  // energieMixPtg: makeSelectEnergieMix(),
 });
 
 function mapDispatchToProps(dispatch) {

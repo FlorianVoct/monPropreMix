@@ -21,34 +21,34 @@ export const population_initiale = {
 // Pour le transport
 export const transport_initiale = {
   conso_transport : 49.18, // en Mtep
-  ener_transport : [2, 3, 4, 5], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
-  enertxt_transport : ["Pétrole", "Gaz", "Electricité", "Agrocarburant"], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
-  ptg_init_transport : [92, 0, 2, 6], //Les valeurs initiales de pourcentage selon chaque �nergie
+  ener : [2, 3, 4, 5], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
+  enertxt : ["Pétrole", "Gaz", "Electricité", "Agrocarburant"], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
+  ptg_init : [92, 0, 2, 6], //Les valeurs initiales de pourcentage selon chaque �nergie
 }
 
 // Pour le Chauffage
-export const Chauffage_initiale = {
+export const chauffage_initiale = {
   conso_chauffage : 53.26, // en Mtep
-	ener_chauffage : [1, 2, 3, 4, 5], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
-	enertxt_chauffage : ["Charbon", "Pétrole", "Gaz", "Electricité", "Bois-énergie (et Divers)"], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
-	ptg_init_chauffage : [1, 20, 41, 19, 19], //Les valeurs initiales de pourcentage selon chaque �nergie
+	ener : [1, 2, 3, 4, 5], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
+	enertxt : ["Charbon", "Pétrole", "Gaz", "Electricité", "Bois-énergie (et Divers)"], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
+	ptg_init : [1, 20, 41, 19, 19], //Les valeurs initiales de pourcentage selon chaque �nergie
 }
 
 // Pour l'industrie
 export const industrie_initiale = {
   conso_industrie : 36.55, // en Mtep
-	ener_industrie : [1, 2, 3, 4, 5], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
-	enertxt_industrie : ["Charbon", "Pétrole", "Gaz", "Electricité", "ENR - Divers"], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
-	ptg_init_industrie : [13, 24, 27, 30, 6], //Les valeurs initiales de pourcentage selon chaque �nergie
+	ener : [1, 2, 3, 4, 5], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
+	enertxt : ["Charbon", "Pétrole", "Gaz", "Electricité", "ENR - Divers"], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
+	ptg_init : [13, 24, 27, 30, 6], //Les valeurs initiales de pourcentage selon chaque �nergie
 }
 
 // Pour l'électtricité
 export const electricite_initiale = {
   conso_electricite : 0, // en Mtep
 	ptg_conso_electricite : 0, // enn ptg
-	ener_electricite : [1, 2, 3, 6, 7, 8, 9, 10, 11, 12, 13, 14], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
-	enertxt_electricite : ["Charbon","Pétrole", "Gaz", "Nucléaire", "Hydraulique", "Eolien terrestre", "Eolien Offshore", "Energie marine", "Solaire PV", "Bois-énergie", "Biogaz", "Divers"], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
-	ptg_init_electricite : [3, 1, 4, 75, 12, 3, 0, 0, 1, 1, 0, 0], //Les valeurs initiales de pourcentage selon chaque �nergie
+	ener : [1, 2, 3, 6, 7, 8, 9, 10, 11, 12, 13, 14], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
+	enertxt : ["Charbon","Pétrole", "Gaz", "Nucléaire", "Hydraulique", "Eolien terrestre", "Eolien Offshore", "Energie marine", "Solaire PV", "Bois-énergie", "Biogaz", "Divers"], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
+	ptg_init : [3, 1, 4, 75, 12, 3, 0, 0, 1, 1, 0, 0], //Les valeurs initiales de pourcentage selon chaque �nergie
 }
 
 // Conversion énergie finale / énergie primaire
@@ -101,25 +101,25 @@ export function calculMixEnergetique(conso, ptg_transport, ptg_chauffage, ptg_in
 	let ptg_energie = [];
 
 	// Pour l'électricité
-	let conso_electricite = (ptg_chauffage[3]*Chauffage_initiale.conso_chauffage*conso.chauffage+
+	let conso_electricite = (ptg_chauffage[3]*chauffage_initiale.conso_chauffage*conso.chauffage+
 						ptg_industrie[3]*industrie_initiale.conso_industrie*conso.industrie+
 						ptg_transport[2]*transport_initiale.conso_transport*conso.transport+
 						conso.elecspe*conso_initiale.conso_elecspe*100)/10000;
 	let ptg_conso_electricite= Math.round(conso_electricite*100/38.6461, 0);
 
 	// Charbon
-	energie[0]=(ptg_chauffage[0]*Chauffage_initiale.conso_chauffage*conso.chauffage+
+	energie[0]=(ptg_chauffage[0]*chauffage_initiale.conso_chauffage*conso.chauffage+
 				ptg_industrie[0]*industrie_initiale.conso_industrie*conso.industrie)/(conversion.conv_charbon*10000)+
 				ptg_electricite[0]*conso_electricite/(conversion.conv_elecfos*100);
 
-	// P�trole
-	energie[1]=(ptg_chauffage[1]*Chauffage_initiale.conso_chauffage*conso.chauffage+
+	// Pétrole
+	energie[1]=(ptg_chauffage[1]*chauffage_initiale.conso_chauffage*conso.chauffage+
 			ptg_industrie[1]*industrie_initiale.conso_industrie*conso.industrie+
 			ptg_transport[0]*transport_initiale.conso_transport*conso.transport)/(conversion.conv_petrole*10000)+
 			ptg_electricite[1]*conso_electricite/(100*conversion.conv_elecfos);
 
 	// Gaz
-	energie[2]=(ptg_chauffage[2]*Chauffage_initiale.conso_chauffage*conso.chauffage+
+	energie[2]=(ptg_chauffage[2]*chauffage_initiale.conso_chauffage*conso.chauffage+
 			ptg_industrie[2]*industrie_initiale.conso_industrie*conso.industrie+
 			ptg_transport[1]*transport_initiale.conso_transport*conso.transport)/(conversion.conv_gaz*10000)+
 			ptg_electricite[2]*conso_electricite/(conversion.conv_elecfos*100);
@@ -128,7 +128,7 @@ export function calculMixEnergetique(conso, ptg_transport, ptg_chauffage, ptg_in
 	energie[3]=ptg_electricite[3]*conso_electricite/(100*conversion.conv_elecnuc);
 
 	// ENR bient�t biomass
-	energie[4]=(ptg_chauffage[4]*Chauffage_initiale.conso_chauffage*conso.chauffage+
+	energie[4]=(ptg_chauffage[4]*chauffage_initiale.conso_chauffage*conso.chauffage+
 			ptg_transport[3]*transport_initiale.conso_transport*conso.transport)/(conversion.conv_enr*10000)+
 			(ptg_electricite[9]+ptg_electricite[10])*conso_electricite/(conversion.conv_elecenr*100);
 
@@ -161,44 +161,41 @@ export function calculMixEnergetique(conso, ptg_transport, ptg_chauffage, ptg_in
 // 		}
 //
 //
-// 	// Pour toujours avoir 100% d'�nergie
-// 	public static int [] changer_valeur(int [] ptg_init, boolean [] cad){
-// 		int [] ptg = ptg_init;
-// 		int somme=0;
-// 		int somme_bloquee=0;
-// 		for(int i=0; i<ptg.length;i++)
-// 		{
-// 			somme=somme+ptg[i];
-// 			if(cad[i]==false)
-// 			{
-// 				somme_bloquee=somme_bloquee+ptg[i];
-// 				if(somme_bloquee>=100)
-// 				{cad[i]=true;
-// 				somme_bloquee=somme_bloquee-ptg[i];}
-// 			}
-// 		}
-// 		while(somme!=100){
-// 			if(somme>100){
-// 				for(int i=0; i<ptg.length;i++)
-// 				{if(cad[i]==true && somme>100 && ptg[i]>0){
-// 					ptg[i]--;
-// 					somme--;
-// 				}
-// 				}
-// 			}
-// 			else{
-// 				for(int i=0; i<ptg.length;i++)
-// 				{if(cad[i]==true && somme<100){
-// 					ptg[i]++;
-// 					somme++;
-// 				}
-// 				}
-// 			}
-// 		}
-//
-//
-//
-//
-// 		return ptg;
-//
-// 	}
+	// Pour toujours avoir 100 de total de pourcentage d'énergie dans un secteur
+	export function calculEnergieMixSecteur(mixEnergieSecteur){
+    let cadenas = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,
+    true, true, true, true, true, true, true, true];
+		let mixEnergieSecteurTemp = mixEnergieSecteur;
+		let somme = 0;
+		let somme_bloquee = 0;
+		for(let i = 0; i < mixEnergieSecteurTemp.length; i++)
+		{
+			somme=somme+mixEnergieSecteurTemp[i];
+			if(cadenas[i]==false)
+			{
+				somme_bloquee=somme_bloquee+mixEnergieSecteurTemp[i];
+				if(somme_bloquee>=100)
+				{cadenas[i]=true;
+				somme_bloquee=somme_bloquee-mixEnergieSecteurTemp[i];}
+			}
+		}
+		while(somme!=100){
+			if(somme>100){
+				for(let i=0; i<mixEnergieSecteurTemp.length;i++)
+				{if(cadenas[i]==true && somme>100 && mixEnergieSecteurTemp[i]>0){
+					mixEnergieSecteurTemp[i]--;
+					somme--;
+				}
+				}
+			}
+			else{
+				for(let i=0; i<mixEnergieSecteurTemp.length;i++)
+				{if(cadenas[i]==true && somme<100){
+					mixEnergieSecteurTemp[i]++;
+					somme++;
+				}
+				}
+			}
+		}
+		return mixEnergieSecteurTemp;
+	}

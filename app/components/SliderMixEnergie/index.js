@@ -1,6 +1,6 @@
 /**
 *
-* Slider
+* SliderMixEnergie
 *
 */
 
@@ -8,26 +8,17 @@ import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
-// import styled from 'styled-components';
-
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
 import { SliderDiv } from './style';
 
-class SliderComponent extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-
+class SliderMixEnergie extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(){
     super();
     this.state = {
-      currentValue: 100,
+      currentValue: 0,
     }
-  }
-
-  componentWillMount(){
-    this.setState({
-      currentValue: this.props.constrainedValue
-    })
   }
 
   componentWillReceiveProps(nextProps){
@@ -36,8 +27,14 @@ class SliderComponent extends React.PureComponent { // eslint-disable-line react
     })
   }
 
+  componentWillMount(){
+    this.setState({
+      currentValue: this.props.constrainedValue
+    })
+  }
+
   onAfterSliderChange(value){
-    this.props.ModifieValue(this.props.consoType, value);
+    this.props.ModifieValue(this.props.energieIndex, value);
   }
 
   onSliderChange(value){
@@ -49,7 +46,7 @@ class SliderComponent extends React.PureComponent { // eslint-disable-line react
   render() {
     return (
       <div>
-        <p>{this.props.SliderTitle} {' - '} {this.state.currentValue} {' %'}</p>
+        <p>{this.props.energieName} {' - '} {this.state.currentValue} {' %'}</p>
         <SliderDiv>
           <Slider
             min={0}
@@ -64,11 +61,11 @@ class SliderComponent extends React.PureComponent { // eslint-disable-line react
   }
 }
 
-SliderComponent.propTypes = {
-  SliderTitle: PropTypes.string,
+SliderMixEnergie.propTypes = {
+  energieName: PropTypes.string,
   ModifieValue: PropTypes.func,
-  consoType: PropTypes.string,
+  energieIndex: PropTypes.number,
   constrainedValue: PropTypes.number,
 };
 
-export default SliderComponent;
+export default SliderMixEnergie;

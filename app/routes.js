@@ -18,7 +18,7 @@ export default function createRoutes(store) {
 
   return [
     {
-      path: '/',
+      path: '/homeboilerplate',
       name: 'home',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
@@ -55,7 +55,7 @@ export default function createRoutes(store) {
           .catch(errorLoading);
       },
     }, {
-      path: '/mixhomepage',
+      path: '/',
       name: 'mixHomePage',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
@@ -67,6 +67,24 @@ export default function createRoutes(store) {
 
         importModules.then(([reducer, component]) => {
           injectReducer('mixHomePage', reducer.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
+      path: '/energiemixpage(/:consommation)',
+      name: 'energieMixPage',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/EnergieMixPage/reducer'),
+          import('containers/EnergieMixPage'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, component]) => {
+          injectReducer('energieMixPage', reducer.default);
           renderRoute(component);
         });
 
