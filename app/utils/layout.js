@@ -24,5 +24,6 @@
 
 export const ISF_COLOR = {
         bleu_clair: '#4A7F9E',
-        
+        vert_clair: '#A2CD9A',
+
 }
