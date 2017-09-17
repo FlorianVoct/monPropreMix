@@ -29,6 +29,8 @@ import Introduction from './PageComponents/Introduction';
 import HomeMix from './PageComponents/HomeMix';
 import SectorMix from './PageComponents/SectorMix';
 
+import { PageContainer } from './style';
+
 
 export class MixHomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -166,9 +168,9 @@ export class MixHomePage extends React.PureComponent { // eslint-disable-line re
 
     render() {
         return (
-            <div>
+            <PageContainer>
                 {this.selectPage()}
-            </div>
+            </PageContainer>
         );
     }
 }

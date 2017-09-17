@@ -11,11 +11,18 @@ import { Link } from 'react-router'
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
+import { Wrapper, Titre, SousTitre } from './style';
+
 function Header() {
   return (
-    <div>
-      <FormattedMessage {...messages.header} />
-    </div>
+    <Wrapper>
+      <Titre>
+        <FormattedMessage {...messages.titre} />
+      </Titre>
+      <SousTitre>
+        <FormattedMessage {...messages.soustitre} />
+      </SousTitre>
+    </Wrapper>
   );
 }
 
