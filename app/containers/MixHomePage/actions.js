@@ -19,7 +19,6 @@ export function modifieMixEnergieAction(secteur, array) {
 }
 
 export function modifieConso(array) {
-  console.log(array);
   return {
     type: MODIFIE_CONSO,
     array

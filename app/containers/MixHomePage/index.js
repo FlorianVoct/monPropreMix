@@ -17,6 +17,7 @@ import SliderComponent from 'components/SliderComponent';
 import PieGrapheComponent from 'components/PieGrapheComponent';
 import {
   calculMixEnergetique,
+  calculGes,
   enertxt,
   conso_initiale,
   transport_initiale,
@@ -90,7 +91,6 @@ export class MixHomePage extends React.PureComponent { // eslint-disable-line re
   }
 
   updateMixEnergie(){
-    console.log('recalcule');
     let energieTemp = calculMixEnergetique(
       this.state.conso,
       this.state.transport.ptg,
@@ -111,6 +111,11 @@ export class MixHomePage extends React.PureComponent { // eslint-disable-line re
       })
     })
     return energieGrapheList;
+  }
+
+  buildCO2Emission(){
+    let energieTemp = this.updateMixEnergie();
+    return calculGes(energieTemp);
   }
 
   changeCurrentPage(currentPage){
@@ -138,6 +143,7 @@ export class MixHomePage extends React.PureComponent { // eslint-disable-line re
           energieGrapheList= {this.buildEnergieGrapheList()}
           changeConso={this.changeConso.bind(this)}
           conso= {this.state.conso}
+          ges= {this.buildCO2Emission.bind(this)}
           />);
       case 'SectorMix':
         return (<SectorMix

@@ -77,21 +77,15 @@ export class EnergieMixPage extends React.Component { // eslint-disable-line rea
   }
 
   buildEnergieGrapheList(){
-    console.log('energie state dans build graphe', this.state.energie);
-
     let enertxt = this.mixEnergieInfo[this.secteur].enertxt;
     let energieGrapheList = [];
     let energieMix = Object.assign(this.state.energie);
-    console.log('energieMix', energieMix);
     energieMix.forEach(function(element, index){
-      console.log(element);
-      console.log(index);
       energieGrapheList.push({
         name: enertxt[index],
         y: element
       })
     })
-    console.log('le tableau du graphe', energieGrapheList);
     return energieGrapheList;
   }
 

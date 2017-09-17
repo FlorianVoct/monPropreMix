@@ -25,7 +25,6 @@ export class HomeMix extends React.PureComponent { // eslint-disable-line react/
   }
 
   changePage(){
-    console.log('go to homemix');
     this.props.selectPage('Introduction');
   }
 
@@ -83,7 +82,7 @@ export class HomeMix extends React.PureComponent { // eslint-disable-line react/
        grapheTitle={'Mix énergétique - France Métropolitaine - 2050'}
        />
 
-       <BarCO2 />
+       <BarCO2 ges={this.props.ges}/>
 
         <div
          onClick={this.changePage.bind(this)}

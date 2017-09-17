@@ -24,99 +24,37 @@ import {
 
 class BarCO2 extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
-  buildBar(){
-    console.log(this.props.ges);
-    let ges = this.props.ges;
-    if(typeof ges === 'undefined'){
-      ges = emmissionGES.emission1990;
-    }
+  displayCO2Result(){
+    let ges = this.props.ges();
     let ref = emmissionGES.emission1990;
-    let min = 0;
-    let max = 1.25;
-    let beginOrange = 0.5;
-    let beginGreen = 0.25;
-
-    let height = 400-30;
-    let totalElement = 25;
-    let elementHeight = height / totalElement;
-
-    let bar = [];
-    for(let i = 0; i < totalElement; i++)
-  	{
-      let couleur = COLORS.rougeInactif;
-      if(i >= (totalElement*(1 - ges/(max*ref)))){
-        couleur = COLORS.rougeActif;
-      }
-      if(i >= (totalElement* (1 - beginOrange/max))){
-        couleur = COLORS.orangeInactif;
-        if(i >= (totalElement*(1 - ges/(max*ref)))){
-          couleur = COLORS.orangeActif;
-        }
-      }
-      if(i >= (totalElement* (1 - beginGreen/max))){
-        couleur = COLORS.vertInactif;
-        if(i >= (totalElement*(1 - ges/(max*ref)))){
-          couleur = COLORS.vertActif;
-        }
-      }
-
-
-
-      // couleur = couleur + 'Actif';
-      // if(i > 50){
-      //   bar.push(<BarElement key={i} className={"red"} />);
-      // }else{
-      //
-      // }
-      // let classLine = 'noline';
-      // if(i % 10 === 0){
-      //   classLine = 'line';
-      // }
-      // console.log(classLine);
-      bar.push(
-        <BarElement key={i}
-            elementHeight={elementHeight}
-            >
-          <RectangleDeCouleur
-            couleur={couleur}
-            />
-        </BarElement>
-      );
+    if(typeof ges.parHabitant === 'undefined'){
+      ges.parHabitant = '--';
     }
-    return bar;
+    let hab = ges.total/ges.parHabitant;
+    let objectifParHab = ref/hab/4;
+    return(
+      <p>
+        {Math.round(ges.parHabitant*10)/10}
+        {' tCO2/an/hab, l\'objectif est d\'atteindre '}
+        {Math.round(objectifParHab*10)/10}{' tCO2/an/hab'}
+      </p>
+    )
+
+
   }
 
-  buildLegend(){
-    let Legend = [];
-    Legend.push(
-      <LegendElement key={2} className={"emission1990"}>
-        {"Emmission de GES en 1990"}
-      </LegendElement>
-    );
-    Legend.push(
-      <LegendElement key={4} className={"Objectif"}>
-        {"Objectif facteur 4 en 2050"}
-      </LegendElement>
-    );
-    return Legend;
-  }
 
   render() {
     return (
       <Wrapper>
-        <BarDiv>
-          {this.buildBar()}
-        </BarDiv>
-        <LegendDiv>
-          {this.buildLegend()}
-        </LegendDiv>
+        {this.displayCO2Result()}
       </Wrapper>
     );
   }
 }
 
 BarCO2.propTypes = {
-  ges: PropTypes.number,
+  // ges: PropTypes.number,
 };
 
 export default BarCO2;
