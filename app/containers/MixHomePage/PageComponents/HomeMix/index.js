@@ -8,14 +8,11 @@ import React, { PropTypes } from 'react';
 
 import SliderComponent from 'components/SliderComponent';
 import PieGrapheComponent from 'components/PieGrapheComponent';
+import BarCO2 from 'components/BarCO2';
 import {
   calculMixEnergetique,
   enertxt
 } from 'components/Calculation';
-
-// import { modifieConso } from './actions';
-// import { makeSelectEnergieMix } from 'containers/EnergieMixPage/selectors';
-
 
 export class HomeMix extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -23,52 +20,9 @@ export class HomeMix extends React.PureComponent { // eslint-disable-line react/
     super();
   }
 
-  // componentWillMount(){
-  //   this.props.dispatch(modifieConso(conso_initiale));
-  //   this.props.dispatch(modifieMixEnergieAction('electricite', electricite_initiale.ptg_init));
-  //   this.props.dispatch(modifieMixEnergieAction('chauffage', chauffage_initiale.ptg_init));
-  //   this.props.dispatch(modifieMixEnergieAction('transport', transport_initiale.ptg_init));
-  //   this.props.dispatch(modifieMixEnergieAction('industrie', industrie_initiale.ptg_init));
-  // }
-  //
-  // // on initialize le store (pas réussi à le faire directement dans le
-  // // reducer)
-  // componentWillMount(){
-  //   this.updateMixEnergie();
-  //
-  // }
-
   changeConso(consoType, value){
     this.props.changeConso(consoType, value);
   }
-
-  // updateMixEnergie(){
-  //   console.log('conso ', this.props.conso);
-  //   console.log('conso ', this.props.conso);
-  //   // console.log(this.props.conso);
-  //   // console.log(this.props.conso);
-  //   // let energieTemp = calculMixEnergetique(
-  //   //   this.props.conso,
-  //   //   ,
-  //   //   ,
-  //   //   ,
-  //   //
-  //   // );
-  //   this.setState({
-  //     energie : []
-  //   })
-  // }
-  //
-  // buildEnergieGrapheList(){
-  //   let energieGrapheList = [];
-  //   this.state.energie.forEach(function(element, index){
-  //     energieGrapheList.push({
-  //       name: enertxt[index],
-  //       y: element
-  //     })
-  //   })
-  //   return energieGrapheList;
-  // }
 
   changePage(){
     console.log('go to homemix');
@@ -124,14 +78,12 @@ export class HomeMix extends React.PureComponent { // eslint-disable-line react/
           > Modifier le mix énergétique de l industrie et de l agriculture
           </div>
 
-
       <PieGrapheComponent
        energieGrapheList= {this.props.energieGrapheList}
        grapheTitle={'Mix énergétique - France Métropolitaine - 2050'}
        />
 
-
-
+       <BarCO2 />
 
         <div
          onClick={this.changePage.bind(this)}
