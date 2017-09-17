@@ -10,7 +10,6 @@ export const COLORS = {
 }
 
 export const Wrapper = styled.div`
-height: 400px;
 min-width: 120px;
 display: flex;
 margin: 15px;

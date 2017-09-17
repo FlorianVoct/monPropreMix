@@ -30,7 +30,6 @@ injectGlobal`
   }
 
   #app > div > div {
-      height: 100%;
       width: 100%;
       min-width: 100%;
       padding:0px;

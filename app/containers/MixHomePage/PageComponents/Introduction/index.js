@@ -16,28 +16,23 @@ import {
     electricite_initiale
 } from 'components/Calculation';
 
-// import { modifieConso } from 'containers/MixHomePage/actions';
-// import { modifieMixEnergieAction } from 'containers/EnergieMixPage/actions';
+import { Wrapper } from './../../style';
 
 export class Introduction extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-    constructor(){
-        super();
-    }
-
     changePage(){
         this.props.selectPage('HomeMix');
     }
 
     render() {
         return (
-            <div>
+            <Wrapper>
                 <FormattedMessage {...messages.notice} />
                 <div
                     onClick={this.changePage.bind(this)}
                     >
                     Commencer !
                 </div>
-            </div>
+            </Wrapper>
         );
     }
 }
