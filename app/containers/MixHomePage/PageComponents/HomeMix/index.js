@@ -16,10 +16,6 @@ import {
 
 export class HomeMix extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
-  constructor(){
-    super();
-  }
-
   changeConso(consoType, value){
     this.props.changeConso(consoType, value);
   }
