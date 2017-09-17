@@ -10,8 +10,6 @@ import Footer from 'components/Footer';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
-import LinkButton from 'components/LinkButton';
-
 import {
   conso_initiale,
   transport_initiale,

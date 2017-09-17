@@ -18,43 +18,6 @@ export default function createRoutes(store) {
 
   return [
     {
-      path: '/homeboilerplate',
-      name: 'home',
-      getComponent(nextState, cb) {
-        const importModules = Promise.all([
-          import('containers/HomePage/reducer'),
-          import('containers/HomePage/sagas'),
-          import('containers/HomePage'),
-        ]);
-
-        const renderRoute = loadModule(cb);
-
-        importModules.then(([reducer, sagas, component]) => {
-          injectReducer('home', reducer.default);
-          injectSagas(sagas.default);
-
-          renderRoute(component);
-        });
-
-        importModules.catch(errorLoading);
-      },
-    }, {
-      path: '/features',
-      name: 'features',
-      getComponent(nextState, cb) {
-        import('containers/FeaturePage')
-          .then(loadModule(cb))
-          .catch(errorLoading);
-      },
-    }, {
-      path: '/introduction',
-      name: 'introduction',
-      getComponent(location, cb) {
-        import('containers/Introduction')
-          .then(loadModule(cb))
-          .catch(errorLoading);
-      },
-    }, {
       path: '/',
       name: 'mixHomePage',
       getComponent(nextState, cb) {
