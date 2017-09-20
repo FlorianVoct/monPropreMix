@@ -21,21 +21,7 @@ injectGlobal`
     height: 100%;
     width: 100%;
   }
-
-  #app > div {
-      height: 100%;
-      width: 100%;
-      padding:0px;
-      margin:0px;
-  }
-
-  #app > div > div {
-      width: 100%;
-      min-width: 100%;
-      padding:0px;
-      margin:auto;
-  }
-
+  
   p,
   label {
     font-family: Georgia, Times, 'Times New Roman', serif;

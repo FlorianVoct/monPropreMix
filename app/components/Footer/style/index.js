@@ -3,13 +3,11 @@ import { ISF_COLOR } from 'utils/layout';
 
 export const Wrapper = styled.div`
 display: flex;
-min-height: 240px;
 width: 100%;
-padding:20px;
-background-color: ${ISF_COLOR.vert_clair};
+padding:100px;
+background-image: radial-gradient(at center top, rgb(28, 59, 68), rgb(0, 25, 54) 70%);
 justify-content:space-around;
 flex-wrap: wrap;
-padding: 15px;
 `;
 
 export const GroupeLogo = styled.div`
