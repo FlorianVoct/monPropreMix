@@ -13,7 +13,7 @@ import 'rc-slider/assets/index.css';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
-import { SliderDiv } from './style';
+import { Wrapper, SliderDiv } from './style';
 
 class SliderComponent extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -48,8 +48,8 @@ class SliderComponent extends React.PureComponent { // eslint-disable-line react
 
   render() {
     return (
-      <div>
-        <p>{this.props.SliderTitle} {' - '} {this.state.currentValue} {' %'}</p>
+      <Wrapper>
+        <h4>{this.props.SliderTitle} {' - '} {this.state.currentValue} {' %'}</h4>
         <SliderDiv>
           <Slider
             min={0}
@@ -59,7 +59,11 @@ class SliderComponent extends React.PureComponent { // eslint-disable-line react
             value={this.state.currentValue}
             />
         </SliderDiv>
-      </div>
+        <button
+         onClick={this.props.sectorLink}
+        > {'Modifier le mix énergétique du '+this.props.consoType}
+        </button>
+      </Wrapper>
     );
   }
 }

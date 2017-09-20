@@ -14,6 +14,8 @@ import {
   enertxt
 } from 'components/Calculation';
 
+import { WrapperIntroduction, DivTitreMix, DivContent } from './../../style';
+
 export class HomeMix extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   changeConso(consoType, value){
@@ -31,61 +33,54 @@ export class HomeMix extends React.PureComponent { // eslint-disable-line react/
 
   render() {
     return (
-      <div>
-      <SliderComponent
-          SliderTitle={"Consommation d'électricité spécifique (tertiaire et domestique)"}
-          ModifieValue={this.props.changeConso}
-          consoType={'elecspe'}
-          constrainedValue={this.props.conso.elecspe}
-          />
-          <div
-           onClick={this.sectorMixPage.bind(this, 'electricite')}
-          > Modifier le mix énergétique de l électricité
-          </div>
-      <SliderComponent
-          SliderTitle={"Consommation de chauffage des bâtiments"}
-          ModifieValue={this.props.changeConso}
-          consoType={'chauffage'}
-          constrainedValue={this.props.conso.chauffage}
-          />
-          <div
-           onClick={this.sectorMixPage.bind(this, 'chauffage')}
-          > Modifier le mix énergétique du chauffage
-          </div>
-      <SliderComponent
-          SliderTitle={"Consommation dans les transports"}
-          ModifieValue={this.props.changeConso}
-          consoType={'transport'}
-          constrainedValue={this.props.conso.transport}
-          />
-          <div
-           onClick={this.sectorMixPage.bind(this, 'transport')}
-          > Modifier le mix énergétique des transports
-          </div>
-      <SliderComponent
-          SliderTitle={"Consommation dans l'industrie et l'agriculture"}
-          ModifieValue={this.props.changeConso}
-          consoType={'industrie'}
-          constrainedValue={this.props.conso.industrie}
-          />
-          <div
-           onClick={this.sectorMixPage.bind(this, 'industrie')}
-          > Modifier le mix énergétique de l industrie et de l agriculture
-          </div>
+        <WrapperIntroduction>
+        <DivTitreMix>
+            <h1>{'Mon propre Mix énergétique'}</h1>
+            <h4>{'Simuler le mix énergétique français en 2050'}</h4>
+        </DivTitreMix>
+          <DivContent>
+          <SliderComponent
+              SliderTitle={"Consommation d'électricité spécifique (tertiaire et domestique)"}
+              ModifieValue={this.props.changeConso}
+              consoType={'elecspe'}
+              constrainedValue={this.props.conso.elecspe}
+              sectorLink={this.sectorMixPage.bind(this, 'electricite')}
+              />
+          <SliderComponent
+              SliderTitle={"Consommation de chauffage des bâtiments"}
+              ModifieValue={this.props.changeConso}
+              consoType={'chauffage'}
+              constrainedValue={this.props.conso.chauffage}
+              sectorLink={this.sectorMixPage.bind(this, 'chauffage')}
+              />
+          <SliderComponent
+              SliderTitle={"Consommation dans les transports"}
+              ModifieValue={this.props.changeConso}
+              consoType={'transport'}
+              constrainedValue={this.props.conso.transport}
+              sectorLink={this.sectorMixPage.bind(this, 'transport')}
+              />
+          <SliderComponent
+              SliderTitle={"Consommation dans l'industrie et l'agriculture"}
+              ModifieValue={this.props.changeConso}
+              consoType={'industrie'}
+              constrainedValue={this.props.conso.industrie}
+              sectorLink={this.sectorMixPage.bind(this, 'industrie')}
+              />
+          <PieGrapheComponent
+           energieGrapheList= {this.props.energieGrapheList}
+           grapheTitle={'Mix énergétique - France Métropolitaine - 2050'}
+           />
 
-      <PieGrapheComponent
-       energieGrapheList= {this.props.energieGrapheList}
-       grapheTitle={'Mix énergétique - France Métropolitaine - 2050'}
-       />
+           <BarCO2 ges={this.props.ges}/>
 
-       <BarCO2 ges={this.props.ges}/>
+            <button
+             onClick={this.changePage.bind(this)}
+            > Revenir au début !
+            </button>
 
-        <div
-         onClick={this.changePage.bind(this)}
-        > Revenir au début !
-        </div>
-
-      </div>
+          </DivContent>
+      </WrapperIntroduction>
     );
   }
 }

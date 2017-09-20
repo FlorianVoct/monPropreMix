@@ -4,6 +4,7 @@ import { ISF_COLOR } from 'utils/layout';
 export const Wrapper = styled.div`
 display: flex;
 width: 100%;
+min-height: 400px;
 padding:100px;
 background-image: radial-gradient(at center top, rgb(28, 59, 68), rgb(0, 25, 54) 70%);
 justify-content:space-around;
