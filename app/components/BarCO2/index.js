@@ -10,33 +10,44 @@ import ReactDOM from 'react-dom';
 
 import {
   Wrapper,
-  BarDiv,
-  BarElement,
-  RectangleDeCouleur,
-  LegendDiv,
-  LegendElement,
-  COLORS,
+  Result,
+  Obj
 } from './style';
 
 import {
   emmissionGES,
 } from 'components/Calculation';
 
+import { Panel } from 'react-bootstrap';
+
 class BarCO2 extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   displayCO2Result(){
     let ges = this.props.ges();
     let ref = emmissionGES.emission1990;
+    let color = 'grey';
+    let objectifParHab = '--';
     if(typeof ges.parHabitant === 'undefined'){
       ges.parHabitant = '--';
+    }else{
+        let hab = ges.total/ges.parHabitant;
+        objectifParHab = ref/hab/4;
+        if(ges.parHabitant > 2*objectifParHab){
+            color = 'rouge';
+        }
+        if(ges.parHabitant < 2*objectifParHab){
+            color = 'orange';
+        }
+        if(ges.parHabitant < objectifParHab){
+            color = 'vert';
+        }
     }
-    let hab = ges.total/ges.parHabitant;
-    let objectifParHab = ref/hab/4;
     return(
       <p>
-        {Math.round(ges.parHabitant*10)/10}
+        <Result className={color}>{Math.round(ges.parHabitant*10)/10}</Result>
         {' tCO2/an/hab, l\'objectif est d\'atteindre '}
-        {Math.round(objectifParHab*10)/10}{' tCO2/an/hab'}
+        <Obj>{Math.round(objectifParHab*10)/10}</Obj>
+        {' tCO2/an/hab'}
       </p>
     )
 
@@ -47,7 +58,9 @@ class BarCO2 extends React.PureComponent { // eslint-disable-line react/prefer-s
   render() {
     return (
       <Wrapper>
-        {this.displayCO2Result()}
+        <Panel>
+            {this.displayCO2Result()}
+        </Panel>
       </Wrapper>
     );
   }

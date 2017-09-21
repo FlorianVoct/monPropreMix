@@ -10,12 +10,6 @@ width: 100%;
 min-height: 100%;
 `;
 
-export const Wrapper = styled.div`
-flex:1;
-max-width: 800px;
-min-height: 100%;
-`;
-
 export const WrapperIntroduction = styled.div`
 flex:1;
 display: flex;
@@ -28,10 +22,12 @@ background-attachment: fixed;
 background-position: center;
 `;
 
+
+
 export const DivTitre = styled.div`
 min-width: 600px;
 padding: 50px;
-margin-top: 150px;
+
 background-color: rgb(0, 25, 54);
 color: white;
 `;
@@ -43,6 +39,15 @@ margin-bottom: 150px;
 background-color: rgb(28, 59, 68);
 color:white;
 `;
+
+export const Wrapper = styled.div`
+/*flex: 1 1 600px;*/
+min-width: 600px;
+display : flex;
+flex-direction: column;
+margin-top: 50px;
+margin-bottom: 50px;
+`;
 export const DivTitreMix = styled.div`
 min-width: 600px;
 padding: 50px;
@@ -53,7 +58,17 @@ color: white;
 
 export const DivContent = styled.div`
 min-width: 600px;
-padding: 50px;
-margin-bottom: 50px;
+padding: 30px;
 background-color: white;
+display:flex;
+justify-content: center;
+flex-wrap:wrap;
+`;
+export const SliderColumn = styled.div`
+min-width: 600px;
+padding: 20px;
+`;
+export const GraphColumn = styled.div`
+min-width: 600px;
+padding: 20px;
 `;

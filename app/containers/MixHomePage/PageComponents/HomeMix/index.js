@@ -14,7 +14,9 @@ import {
   enertxt
 } from 'components/Calculation';
 
-import { WrapperIntroduction, DivTitreMix, DivContent } from './../../style';
+import { WrapperIntroduction, DivTitreMix, DivContent, Wrapper, GraphColumn, SliderColumn } from './../../style';
+import {FaAutomobile, FaIndustry, FaHome, FaLightbulbO } from 'react-icons/lib/fa';
+import { Button } from 'react-bootstrap';
 
 export class HomeMix extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -34,17 +36,20 @@ export class HomeMix extends React.PureComponent { // eslint-disable-line react/
   render() {
     return (
         <WrapperIntroduction>
+        <Wrapper>
         <DivTitreMix>
             <h1>{'Mon propre Mix énergétique'}</h1>
             <h4>{'Simuler le mix énergétique français en 2050'}</h4>
         </DivTitreMix>
           <DivContent>
+          <SliderColumn>
           <SliderComponent
               SliderTitle={"Consommation d'électricité spécifique (tertiaire et domestique)"}
               ModifieValue={this.props.changeConso}
               consoType={'elecspe'}
               constrainedValue={this.props.conso.elecspe}
               sectorLink={this.sectorMixPage.bind(this, 'electricite')}
+              Icon={<FaLightbulbO size={25}/>}
               />
           <SliderComponent
               SliderTitle={"Consommation de chauffage des bâtiments"}
@@ -52,6 +57,7 @@ export class HomeMix extends React.PureComponent { // eslint-disable-line react/
               consoType={'chauffage'}
               constrainedValue={this.props.conso.chauffage}
               sectorLink={this.sectorMixPage.bind(this, 'chauffage')}
+              Icon={<FaHome size={25}/>}
               />
           <SliderComponent
               SliderTitle={"Consommation dans les transports"}
@@ -59,6 +65,7 @@ export class HomeMix extends React.PureComponent { // eslint-disable-line react/
               consoType={'transport'}
               constrainedValue={this.props.conso.transport}
               sectorLink={this.sectorMixPage.bind(this, 'transport')}
+              Icon={<FaAutomobile size={25}/>}
               />
           <SliderComponent
               SliderTitle={"Consommation dans l'industrie et l'agriculture"}
@@ -66,20 +73,20 @@ export class HomeMix extends React.PureComponent { // eslint-disable-line react/
               consoType={'industrie'}
               constrainedValue={this.props.conso.industrie}
               sectorLink={this.sectorMixPage.bind(this, 'industrie')}
+              Icon={<FaIndustry size={25}/>}
               />
+               </SliderColumn>
+                <GraphColumn>
           <PieGrapheComponent
            energieGrapheList= {this.props.energieGrapheList}
            grapheTitle={'Mix énergétique - France Métropolitaine - 2050'}
            />
-
            <BarCO2 ges={this.props.ges}/>
-
-            <button
-             onClick={this.changePage.bind(this)}
-            > Revenir au début !
-            </button>
+           <Button bsStyle="primary" onClick={this.changePage.bind(this)}>Revenir au début !</Button>
+           </GraphColumn>
 
           </DivContent>
+          </Wrapper>
       </WrapperIntroduction>
     );
   }

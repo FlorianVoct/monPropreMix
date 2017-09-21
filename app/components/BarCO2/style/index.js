@@ -10,61 +10,30 @@ export const COLORS = {
 }
 
 export const Wrapper = styled.div`
-min-width: 120px;
 display: flex;
-margin: 15px;
-// padding:20px;
-`;
-export const BarDiv = styled.div`
-width:30px;
-
-`;
-export const LegendDiv = styled.div`
-width:70px;
-
-`;
-export const BarElement = styled.div`
-height: ${props => props.elementHeight}px;
-width: 30px;
-padding: 1px 5px;
-display: flex;
-
-
-.line{
-  border-top: 1px solid grey;
-  background-color: grey;
+.panel {
+    flex:1;
 }
-
-.green{
-  background-color: green;
+.grey {
+    color: grey;
 }
-
+.rouge {
+    color: ${COLORS.rougeActif};
+}
+.orange {
+    color: ${COLORS.orangeActif};
+}
+.vert {
+    color: ${COLORS.vertActif};
+}
+`;
+export const Result = styled.span`
+font-size: 3em;
+font-weight: bold;
 
 `;
-
-
-
-export const RectangleDeCouleur = styled.div`
-
-background-color: ${props => props.couleur};
-flex:1;
-
-
-
-
-
-`;
-
-export const LegendElement = styled.div`
-
-font-size:
-
-.emission1990{
-
-}
-
-.Objectif{
-
-}
-
+export const Obj = styled.span`
+font-size: 2em;
+font-weight: bold;
+color: grey;
 `;

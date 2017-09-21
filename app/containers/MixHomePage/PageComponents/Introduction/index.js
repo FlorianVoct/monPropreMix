@@ -17,6 +17,7 @@ import {
 } from 'components/Calculation';
 
 import { WrapperIntroduction, DivTitre, DivTexte } from './../../style';
+import { Button } from 'react-bootstrap';
 
 export class Introduction extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
     changePage(){
@@ -45,12 +46,7 @@ export class Introduction extends React.PureComponent { // eslint-disable-line r
                         <li>{"La répartition de la production selon les énergies dans chaque secteur."}</li>
                     </ul>
                     <p>{"A vous de jouer, bonne chance"}</p>
-
-                    <button
-                        onClick={this.changePage.bind(this)}
-                        >
-                        Commencer !
-                    </button>
+                    <Button bsStyle="primary" onClick={this.changePage.bind(this)}>Commencer !</Button>
                 </DivTexte>
             </WrapperIntroduction>
         );

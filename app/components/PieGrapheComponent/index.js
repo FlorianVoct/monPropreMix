@@ -9,6 +9,7 @@ import ReactDOM from 'react-dom';
 
 import { Container } from './style';
 import ReactHighcharts from 'react-highcharts';
+import { Panel } from 'react-bootstrap';
 
 const config = {
   chart: {
@@ -59,12 +60,14 @@ class PieGrapheComponent extends React.PureComponent { // eslint-disable-line re
 
   render() {
     return (
-      <Container id="container">
-        <ReactHighcharts
-        config = {config}
-        ref='chart'
-        />
-      </Container>
+        <Panel>
+          <Container id="container">
+            <ReactHighcharts
+            config = {config}
+            ref='chart'
+            />
+          </Container>
+      </Panel>
     );
   }
 }
