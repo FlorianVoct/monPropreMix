@@ -11,7 +11,9 @@ import 'rc-slider/assets/index.css';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
-import { SliderDiv } from './style';
+import { Wrapper, SliderDiv, InsidePanel, LineSlider, Icon, Value, LockIcon } from './style';
+import { Button, Panel } from 'react-bootstrap';
+import {FaLock, FaUnlock, FaHome, FaLightbulbO } from 'react-icons/lib/fa';
 
 class SliderMixEnergie extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(){
@@ -48,24 +50,32 @@ class SliderMixEnergie extends React.PureComponent { // eslint-disable-line reac
   }
 
   render() {
-    let lockText = "Débloquer";
+    let lockText = <FaLock size={25}/>;
     if(this.props.lockState){
-      lockText = "Bloquer";
+      lockText = <FaUnlock size={25}/>;
     }
+    let EnergieIcon = 'energieIcon';
     return (
-      <div>
-        <p>{this.props.energieName} {' - '} {this.state.currentValue} {' %'}</p>
-        <p onClick={this.changeLockState.bind(this)} >{lockText}</p>
-        <SliderDiv>
-          <Slider
-            min={0}
-            max={100}
-            onChange={this.onSliderChange.bind(this)}
-            onAfterChange={this.onAfterSliderChange.bind(this)}
-            value={this.state.currentValue}
-            />
-        </SliderDiv>
-      </div>
+      <Wrapper>
+          <Panel header={this.props.energieName}>
+              <InsidePanel>
+                  <LineSlider>
+                  <Icon>{EnergieIcon}</Icon>
+                  <SliderDiv>
+                      <Slider
+                        min={0}
+                        max={100}
+                        onChange={this.onSliderChange.bind(this)}
+                        onAfterChange={this.onAfterSliderChange.bind(this)}
+                        value={this.state.currentValue}
+                        />
+                  </SliderDiv>
+                  <Value>{this.state.currentValue} {' %'}</Value>
+                  <LockIcon onClick={this.changeLockState.bind(this)} >{lockText}</LockIcon>
+                  </LineSlider>
+              </InsidePanel>
+          </Panel>
+      </Wrapper>
     );
   }
 }

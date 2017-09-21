@@ -76,7 +76,7 @@ export class HomeMix extends React.PureComponent { // eslint-disable-line react/
               Icon={<FaIndustry size={25}/>}
               />
                </SliderColumn>
-                <GraphColumn>
+               <GraphColumn>
           <PieGrapheComponent
            energieGrapheList= {this.props.energieGrapheList}
            grapheTitle={'Mix énergétique - France Métropolitaine - 2050'}

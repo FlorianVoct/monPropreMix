@@ -16,6 +16,9 @@ import {
   electricite_initiale,
 } from 'components/Calculation';
 
+import { WrapperIntroduction, Wrapper, DivTitreMix, DivContent, SliderColumn, GraphColumn } from './../../style';
+import { Button } from 'react-bootstrap';
+
 export class SectorMix extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(){
     super();
@@ -81,18 +84,26 @@ export class SectorMix extends React.Component { // eslint-disable-line react/pr
 
   render() {
     return (
-      <div>
+        <WrapperIntroduction>
+      <Wrapper>
+      <DivTitreMix>
+          <h1>{'Mon propre Mix énergétique'}</h1>
+          <h4>{'Simuler le mix énergétique français en 2050'}</h4>
+      </DivTitreMix>
+        <DivContent>
+         <SliderColumn>
       {this.buildSliderList()}
+       </SliderColumn>
+       <GraphColumn>
       <PieGrapheComponent
       energieGrapheList= {this.buildEnergieGrapheList()}
       grapheTitle={'Mix énergétique - ' + this.props.sector}
       />
-        <div
-         onClick={this.changePage.bind(this)}
-        >
-        Retour a la page principale
-        </div>
-      </div>
+      <Button bsStyle="primary" onClick={this.changePage.bind(this)}>Retour a la page principale</Button>
+      </GraphColumn>
+       </DivContent>
+      </Wrapper>
+      </WrapperIntroduction>
     );
   }
 }
