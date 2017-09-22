@@ -18,6 +18,7 @@ import {
     calculMixEnergetique,
     calculGes,
     enertxt,
+    color,
     conso_initiale,
     transport_initiale,
     chauffage_initiale,
@@ -105,7 +106,8 @@ export class MixHomePage extends React.PureComponent { // eslint-disable-line re
         energieTemp.forEach(function(element, index){
             energieGrapheList.push({
                 name: enertxt[index],
-                y: element
+                y: element,
+                color: color[index]
             })
         })
         return energieGrapheList;

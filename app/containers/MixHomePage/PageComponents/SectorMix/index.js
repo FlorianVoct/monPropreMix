@@ -67,12 +67,14 @@ export class SectorMix extends React.Component { // eslint-disable-line react/pr
 
   buildEnergieGrapheList(){
     let enertxt = this.mixEnergieInfo[this.props.sector].enertxt;
+    let color = this.mixEnergieInfo[this.props.sector].color;
     let energieGrapheList = [];
     let energieMix = Object.assign(this.props.sectorMixPtgAndLock.ptg);
     energieMix.forEach(function(element, index){
       energieGrapheList.push({
         name: enertxt[index],
-        y: element
+        y: element,
+        color: color[index]
       })
     })
     return energieGrapheList;

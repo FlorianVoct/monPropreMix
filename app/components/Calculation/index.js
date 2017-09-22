@@ -18,11 +18,29 @@ export const population_initiale = {
   population : 65
 }
 
+// Pour les couleur par énergie
+const couleur = {
+    charbon: '#982525',
+    petrole: '#E31010',
+    gaz: '#F39595',
+    nucleaire: '#890573',
+    electricite: '#1555EA',
+    biomasse: '#159706',
+    hydraulique: '#1D1DCD',
+    eolienter: '#D5EBFA',
+    eolienmer: '#70BFF4',
+    solaire: '#FEF723',
+    marine: '#000057',
+    biogaz: '#6DE65F',
+    divers: '#723C24',
+}
+
 // Pour le transport
 export const transport_initiale = {
   conso_transport : 49.18, // en Mtep
   ener : [2, 3, 4, 5], //2 pour pétrole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
   enertxt : ["Pétrole", "Gaz", "Electricité", "Agrocarburant"], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
+  color : [couleur.petrole, couleur.gaz, couleur.electricite, couleur.biomasse],
   ptg_init : [92, 0, 2, 6], //Les valeurs initiales de pourcentage selon chaque �nergie
   lock_init : [true, true, true, true] // les valeurs initiale de lock dans le mix secteur
 }
@@ -32,7 +50,8 @@ export const chauffage_initiale = {
   conso_chauffage : 53.26, // en Mtep
 	ener : [1, 2, 3, 4, 5], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
 	enertxt : ["Charbon", "Pétrole", "Gaz", "Electricité", "Bois-énergie (et Divers)"], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
-	ptg_init : [1, 20, 41, 19, 19], //Les valeurs initiales de pourcentage selon chaque �nergie
+    color : [couleur.charbon, couleur.petrole, couleur.gaz, couleur.electricite, couleur.biomasse],
+    ptg_init : [1, 20, 41, 19, 19], //Les valeurs initiales de pourcentage selon chaque �nergie
   lock_init : [true, true, true, true, true] // les valeurs initiale de lock dans le mix secteur
 }
 
@@ -41,7 +60,8 @@ export const industrie_initiale = {
   conso_industrie : 36.55, // en Mtep
 	ener : [1, 2, 3, 4, 5], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
 	enertxt : ["Charbon", "Pétrole", "Gaz", "Electricité", "ENR - Divers"], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
-	ptg_init : [13, 24, 27, 30, 6], //Les valeurs initiales de pourcentage selon chaque �nergie
+    color : [couleur.charbon, couleur.petrole, couleur.gaz, couleur.electricite, couleur.divers],
+    ptg_init : [13, 24, 27, 30, 6], //Les valeurs initiales de pourcentage selon chaque �nergie
   lock_init : [true, true, true, true, true] // les valeurs initiale de lock dans le mix secteur
 }
 
@@ -51,7 +71,8 @@ export const electricite_initiale = {
 	ptg_conso_electricite : 0, // enn ptg
 	ener : [1, 2, 3, 6, 7, 8, 9, 10, 11, 12, 13, 14], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
 	enertxt : ["Charbon","Pétrole", "Gaz", "Nucléaire", "Hydraulique", "Eolien terrestre", "Eolien Offshore", "Energie marine", "Solaire PV", "Bois-énergie", "Biogaz", "Divers"], //2 pour p�trole, 3 pour gaz, 4 pour �lectricit�, 5 pour agrocarburants
-	ptg_init : [3, 1, 4, 75, 12, 3, 0, 0, 1, 1, 0, 0], //Les valeurs initiales de pourcentage selon chaque �nergie
+    color : [couleur.charbon, couleur.petrole, couleur.gaz, couleur.nucleaire, couleur.hydrolique, couleur.eolienter, couleur.eolienmer, couleur.marine, couleur.solaire, couleur.biomasse, couleur.biogaz, couleur.divers],
+    ptg_init : [3, 1, 4, 75, 12, 3, 0, 0, 1, 1, 0, 0], //Les valeurs initiales de pourcentage selon chaque �nergie
   lock_init : [true, true, true, true, true, true, true, true, true, true, true, true], // les valeurs initiale de lock dans le mix secteur
 }
 
@@ -80,6 +101,9 @@ export const emmissionGES = {
 export const enertxt =  ["Charbon", "Pétrole", "Gaz",
 "Nucléaire", "Biomasse", "Hydraulique",
 "Eoliennes", "Solaire PV", "Divers et déchets"];
+export const color =  [couleur.charbon, couleur.petrole, couleur.gaz,
+couleur.nucleaire, couleur.biomasse, couleur.hydraulique,
+couleur.eolienter, couleur.solaire, couleur.divers];
 
 // Pour les couleurs des graphiques
 // export const color = {
