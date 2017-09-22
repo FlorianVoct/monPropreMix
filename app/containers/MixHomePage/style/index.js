@@ -22,20 +22,18 @@ background-attachment: fixed;
 background-position: center;
 `;
 
-
-
 export const DivTitre = styled.div`
 min-width: 600px;
-padding: 50px;
-
+padding: 40px;
+margin-top: 100px;
 background-color: rgb(0, 25, 54);
 color: white;
 `;
 
 export const DivTexte = styled.div`
 width: 600px;
-padding: 50px;
-margin-bottom: 150px;
+padding: 40px;
+margin-bottom: 100px;
 background-color: rgb(28, 59, 68);
 color:white;
 `;
@@ -64,10 +62,12 @@ display:flex;
 justify-content: center;
 flex-wrap:wrap;
 `;
+
 export const SliderColumn = styled.div`
 min-width: 600px;
 padding: 20px;
 `;
+
 export const GraphColumn = styled.div`
 min-width: 600px;
 padding: 20px;

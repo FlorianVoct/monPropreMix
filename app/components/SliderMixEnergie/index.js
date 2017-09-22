@@ -11,9 +11,9 @@ import 'rc-slider/assets/index.css';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
-import { Wrapper, SliderDiv, InsidePanel, LineSlider, Icon, Value, LockIcon } from './style';
+import { Wrapper, SliderDiv, InsidePanel, LineSlider, EnergieName, Value, LockIcon } from './style';
 import { Button, Panel } from 'react-bootstrap';
-import {FaLock, FaUnlock, FaHome, FaLightbulbO } from 'react-icons/lib/fa';
+import {FaLock, FaUnlock } from 'react-icons/lib/fa';
 
 class SliderMixEnergie extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(){
@@ -57,24 +57,22 @@ class SliderMixEnergie extends React.PureComponent { // eslint-disable-line reac
     let EnergieIcon = 'energieIcon';
     return (
       <Wrapper>
-          <Panel header={this.props.energieName}>
-              <InsidePanel>
-                  <LineSlider>
-                  <Icon>{EnergieIcon}</Icon>
-                  <SliderDiv>
-                      <Slider
-                        min={0}
-                        max={100}
-                        onChange={this.onSliderChange.bind(this)}
-                        onAfterChange={this.onAfterSliderChange.bind(this)}
-                        value={this.state.currentValue}
-                        />
-                  </SliderDiv>
-                  <Value>{this.state.currentValue} {' %'}</Value>
-                  <LockIcon onClick={this.changeLockState.bind(this)} >{lockText}</LockIcon>
-                  </LineSlider>
-              </InsidePanel>
-          </Panel>
+          <InsidePanel>
+              <LineSlider>
+              <EnergieName>{this.props.energieName}</EnergieName>
+              <SliderDiv>
+                  <Slider
+                    min={0}
+                    max={100}
+                    onChange={this.onSliderChange.bind(this)}
+                    onAfterChange={this.onAfterSliderChange.bind(this)}
+                    value={this.state.currentValue}
+                    />
+              </SliderDiv>
+              <Value>{this.state.currentValue} {' %'}</Value>
+              <LockIcon onClick={this.changeLockState.bind(this)} >{lockText}</LockIcon>
+              </LineSlider>
+          </InsidePanel>
       </Wrapper>
     );
   }
